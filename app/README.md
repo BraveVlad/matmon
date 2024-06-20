@@ -11,13 +11,13 @@
 
 - index = my rooms
 
--- create
---- room creation screen
---- treasure creation modal
+- create
+  - room creation screen
+  - treasure creation modal
 
--- view = room view screen (start game / share / delete / edit)
+- view = room view screen (start game / share / delete / edit)
 
--- share = room share modal
+- share = room share modal
 
 ### Game Route
 
