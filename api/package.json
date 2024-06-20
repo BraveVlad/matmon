@@ -1,13 +1,13 @@
 {
-	"name": "agala-api",
+	"name": "matmon-api",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Matmon API",
 	"main": "index.js",
 	"scripts": {
 		"dev": "ts-node-dev --transpile-only src/index.ts"
 	},
 	"keywords": [],
-	"author": "Gilad V. Pinker",
+	"author": "Yizhak,Yotam,Gilad",
 	"license": "ISC",
 	"dependencies": {
 		"body-parser": "^1.20.2",
@@ -20,8 +20,7 @@
 		"@types/cors": "^2.8.17",
 		"@types/express": "^4.17.21",
 		"@types/node": "^20.12.2",
-		"mongoose": "^8.4.0",
-		"mysql2": "^3.9.8",
+		"mongoose": "^8.4.3",
 		"ts-node-dev": "^2.0.0",
 		"typescript": "^5.4.3"
 	}
