@@ -1,5 +1,5 @@
 import { Slot } from "expo-router";
 
-export default function RoomLayout() {
+export default function GameLayout() {
 	return <Slot />;
 }

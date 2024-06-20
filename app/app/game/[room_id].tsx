@@ -1,9 +1,9 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 
-export default function RoomScreen() {
+export default function GameScreen() {
 	return (
 		<View style={styles.container}>
-			<Text>Welcome to RoomScreen!</Text>
+			<Text>Welcome to Game Screen!</Text>
 		</View>
 	);
 }
