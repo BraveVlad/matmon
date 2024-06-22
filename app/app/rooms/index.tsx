@@ -1,5 +1,14 @@
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
-import { Rooms } from "../../models/Room.model";
+import {
+	Button,
+	FlatList,
+	ListRenderItem,
+	ListRenderItemInfo,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
+import { Room, Rooms } from "../../models/Room.model";
+import { ReactElement, JSXElementConstructor } from "react";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -25,9 +34,18 @@ const MOCK_ROOMS: Rooms = [
 	},
 ];
 export default function RoomsScreen() {
+	function RenderRoomsListItem({ item }: ListRenderItemInfo<Room>) {
+		return <Text>Mock Room Item: {item.title}</Text>;
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text>Welcome to My Rooms!</Text>
+			<FlatList
+				data={MOCK_ROOMS}
+				renderItem={RenderRoomsListItem}
+				keyExtractor={(room) => room.id}
+			/>
 		</View>
 	);
 }
