@@ -10,3 +10,5 @@ export type Treasure = {
 	isFound: boolean;
 	coordinate: TreasureCoordinate;
 };
+
+export type Treasures = Treasure[];
