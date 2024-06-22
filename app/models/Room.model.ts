@@ -5,3 +5,5 @@ export type Room = {
 	treasures: undefined;
 	creator: undefined; // TODO - Change to a User model
 };
+
+export type Rooms = Room[];
