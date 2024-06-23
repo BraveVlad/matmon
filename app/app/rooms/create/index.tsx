@@ -15,6 +15,8 @@ export default function RoomCreationScreen() {
           start
         </Link>
       </Pressable>
+	  {/* map view here */}
+	  {/* modal of trusere here */}
     </View>
   );
 }
