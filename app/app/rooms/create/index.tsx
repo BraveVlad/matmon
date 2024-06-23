@@ -8,7 +8,7 @@ import {
 	Text,
 	View,
 } from "react-native";
-import MapView from "react-native-maps";
+import { MapView } from "../../../components/MapView/MapView";
 
 export default function RoomCreationScreen() {
 	return (
@@ -26,13 +26,6 @@ export default function RoomCreationScreen() {
 function TreasuresMapView() {
 	const mapRef = useRef<MapView>(null);
 
-	if (Platform.OS === "web") {
-		return (
-			<View style={styles.mapErrorContainer}>
-				<Text>Map is not supported on web.</Text>
-			</View>
-		);
-	}
 	return (
 		<View style={styles.mapContainer}>
 			<MapView ref={mapRef} />
@@ -51,10 +44,5 @@ const styles = StyleSheet.create({
 	mapContainer: {
 		width: 250,
 		height: 250,
-	},
-	mapErrorContainer: {
-		alignContent: "center",
-		justifyContent: "center",
-		backgroundColor: "red",
 	},
 });
