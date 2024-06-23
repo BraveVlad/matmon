@@ -1,13 +1,6 @@
-import {
-	FlatList,
-	ListRenderItemInfo,
-	Pressable,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import { Rooms, Room } from "../models/Room.model";
-import { router } from "expo-router";
+import RoomsListViewItem from "./RoomsListViewItem";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -48,30 +41,9 @@ export default function RoomsListView() {
 	);
 }
 
-type RoomsListViewItemProps = {
-	room: Room;
-};
-
-function RoomsListViewItem({ room }: RoomsListViewItemProps) {
-	function onOpenRoomScreen() {
-		router.push(`/rooms/view/${room.id}`);
-	}
-
-	return (
-		<Pressable style={styles.roomsListItem} onPress={onOpenRoomScreen}>
-			<Text>{room.title}</Text>
-			<Text>created: {room.creationDate.toLocaleDateString()}</Text>
-		</Pressable>
-	);
-}
-
 const styles = StyleSheet.create({
 	roomsList: {
 		width: "75%",
 		gap: 16,
-	},
-	roomsListItem: {
-		flexDirection: "row",
-		justifyContent: "space-between",
 	},
 });
