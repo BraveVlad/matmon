@@ -1,6 +1,7 @@
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import { Rooms, Room } from "../models/Room.model";
 import RoomsListViewItem from "./RoomsListViewItem";
+import { useQuery } from "@tanstack/react-query";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -26,7 +27,16 @@ const MOCK_ROOMS: Rooms = [
 	},
 ];
 
+function fetchRooms() {
+	return MOCK_ROOMS;
+}
+
 export default function RoomsListView() {
+	const roomsQuery = useQuery({
+		queryKey: ["rooms"],
+		queryFn: fetchRooms,
+	});
+
 	function RenderRoomsListItem({ item }: ListRenderItemInfo<Room>) {
 		return <RoomsListViewItem room={item} />;
 	}
@@ -34,7 +44,7 @@ export default function RoomsListView() {
 	return (
 		<FlatList
 			style={styles.roomsList}
-			data={MOCK_ROOMS}
+			data={roomsQuery.data}
 			renderItem={RenderRoomsListItem}
 			keyExtractor={(room) => room.id}
 		/>
