@@ -22,18 +22,18 @@ router.get("/all", (_, response) => {
 	};
 
 	if (!rooms) {
-		apiResponse.message = "Something went wrong!";
+		apiResponse.message = "Couldn't find rooms.";
 		response.status(500);
 		response.json(apiResponse);
 		return;
 	}
 
-	if (rooms.length === 0) {
-		apiResponse.message = "NO_ROOMS_FOUND";
-		response.status(200);
-		response.json(apiResponse);
-		return;
-	}
+	// if (rooms.length === 0) {
+	// 	apiResponse.message = "NO_ROOMS_FOUND";
+	// 	response.status(200);
+	// 	response.json(apiResponse);
+	// 	return;
+	// }
 
 	apiResponse.data = rooms;
 
