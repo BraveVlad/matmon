@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function RoomCreationScreen() {
   return (
@@ -15,8 +15,18 @@ export default function RoomCreationScreen() {
           start
         </Link>
       </Pressable>
-	  {/* map view here */}
-	  {/* modal of trusere here */}
+      {/* map view here */}
+
+      <Pressable
+        // onPress={() => {
+        //   "open the modal of add new treasure";
+        // }}
+        // onLongPress={() => {
+        //   "open the modal of edit treasures";
+        // }}
+      >
+        ➕add treasure
+      </Pressable>
     </View>
   );
 }
