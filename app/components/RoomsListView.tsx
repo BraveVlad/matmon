@@ -9,6 +9,7 @@ import {
 import { Rooms, Room } from "../models/Room.model";
 import RoomsListViewItem from "./RoomsListViewItem";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -34,11 +35,21 @@ const MOCK_ROOMS: Rooms = [
 	},
 ];
 
+type RoomsApiResponse = {
+	message: string;
+	data?: Rooms;
+};
+
 async function fetchRooms() {
-	const result = await new Promise<Rooms>((resolve) =>
-		setTimeout(() => resolve(MOCK_ROOMS), 2000)
+	const result = await axios.get<RoomsApiResponse>(
+		"http://localhost:3000/rooms/all"
 	);
-	return result;
+	const response = result.data;
+	const rooms = response.data?.map((room) => ({
+		...room,
+		creationDate: new Date(room.creationDate),
+	}));
+	return rooms;
 }
 
 export default function RoomsListView() {
