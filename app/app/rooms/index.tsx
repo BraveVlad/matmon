@@ -1,9 +1,19 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import RoomsListView from "../../components/RoomsListView";
+import { router } from "expo-router";
 
 export default function RoomsScreen() {
+	function onCreateNewRoom() {
+		router.push("/rooms/create/");
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text>Welcome to My Rooms!</Text>
+			<RoomsListView />
+			<Pressable onPress={onCreateNewRoom}>
+				<Text>Create new room</Text>
+			</Pressable>
 		</View>
 	);
 }
