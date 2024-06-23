@@ -1,11 +1,13 @@
 import {
 	FlatList,
 	ListRenderItemInfo,
+	Pressable,
 	StyleSheet,
 	Text,
 	View,
 } from "react-native";
 import { Rooms, Room } from "../models/Room.model";
+import { router } from "expo-router";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -51,11 +53,15 @@ type RoomsListViewItemProps = {
 };
 
 function RoomsListViewItem({ room }: RoomsListViewItemProps) {
+	function onOpenRoomScreen() {
+		router.push(`/rooms/view/${room.id}`);
+	}
+
 	return (
-		<View style={styles.roomsListItem}>
+		<Pressable style={styles.roomsListItem} onPress={onOpenRoomScreen}>
 			<Text>{room.title}</Text>
 			<Text>created: {room.creationDate.toLocaleDateString()}</Text>
-		</View>
+		</Pressable>
 	);
 }
 
