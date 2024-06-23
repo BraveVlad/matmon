@@ -9,7 +9,7 @@ import {
 import { Rooms, Room } from "../models/Room.model";
 import RoomsListViewItem from "./RoomsListViewItem";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const MOCK_ROOMS: Rooms = [
 	{
@@ -41,15 +41,35 @@ type RoomsApiResponse = {
 };
 
 async function fetchRooms() {
-	const result = await axios.get<RoomsApiResponse>(
-		"http://localhost:3000/rooms/all"
-	);
-	const response = result.data;
-	const rooms = response.data?.map((room) => ({
-		...room,
-		creationDate: new Date(room.creationDate),
-	}));
-	return rooms;
+	try {
+		const result = await axios.get<RoomsApiResponse>(
+			"http://localhost:3000/rooms/all"
+		);
+		const response = result.data;
+
+		if (!response || !response.data) {
+			throw new Error("Unable to resolve response or it's data.");
+		}
+
+		if (response.message !== "OK") {
+			throw new Error(response.message);
+		}
+
+		const rooms = response.data.map((room) => ({
+			...room,
+			creationDate: new Date(room.creationDate),
+		}));
+
+		return rooms;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		console.error(
+			"Error occured while fetching all rooms:",
+			axiosError.message
+		);
+
+		throw axiosError;
+	}
 }
 
 export default function RoomsListView() {
