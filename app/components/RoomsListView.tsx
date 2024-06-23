@@ -1,4 +1,10 @@
-import { FlatList, ListRenderItemInfo, Text } from "react-native";
+import {
+	FlatList,
+	ListRenderItemInfo,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import { Rooms, Room } from "../models/Room.model";
 
 const MOCK_ROOMS: Rooms = [
@@ -27,13 +33,39 @@ const MOCK_ROOMS: Rooms = [
 
 export default function RoomsListView() {
 	function RenderRoomsListItem({ item }: ListRenderItemInfo<Room>) {
-		return <Text>Mock Room Item: {item.title}</Text>;
+		return <RoomsListViewItem room={item} />;
 	}
+
 	return (
 		<FlatList
+			style={styles.roomsList}
 			data={MOCK_ROOMS}
 			renderItem={RenderRoomsListItem}
 			keyExtractor={(room) => room.id}
 		/>
 	);
 }
+
+type RoomsListViewItemProps = {
+	room: Room;
+};
+
+function RoomsListViewItem({ room }: RoomsListViewItemProps) {
+	return (
+		<View style={styles.roomsListItem}>
+			<Text>{room.title}</Text>
+			<Text>created: {room.creationDate.toLocaleDateString()}</Text>
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	roomsList: {
+		width: "75%",
+		gap: 16,
+	},
+	roomsListItem: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+});
