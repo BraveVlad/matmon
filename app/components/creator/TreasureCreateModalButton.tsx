@@ -6,7 +6,7 @@ export default function TreasureCreateModalButton() {
 		<View>
 			<Button
 				title="Add Treasure"
-				onPress={() => router.push("/rooms/create/treasure")}
+				onPress={() => router.push("/creator/treasure")}
 			/>
 		</View>
 	);
