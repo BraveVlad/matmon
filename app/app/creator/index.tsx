@@ -2,12 +2,17 @@ import { Button, StyleSheet, View } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
-import { Treasure } from "../../models/Treasure.model";
+import { Treasure, Treasures } from "../../models/Treasure.model";
 import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
+import { useState } from "react";
 
 export default function CreatorScreen() {
-	function onNewTreasure(treasure: Treasure): void {
-		console.log(`new treasure: ${treasure.name} generated.`);
+	const [treasures, setTreasures] = useState<Treasures>([]);
+	console.log(treasures);
+
+	function onNewTreasure(newTreasure: Treasure): void {
+		console.log(`new treasure: ${newTreasure.name} generated.`);
+		setTreasures([...treasures, newTreasure]);
 	}
 
 	return (

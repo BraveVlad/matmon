@@ -25,8 +25,8 @@ export default function MockTreasureCreateButton({
 
 	function generateRandomTreasure(reasureTitle: string): Treasure {
 		const id = Math.random().toString(36).substring(2, 9); // Generate a random string id
-		const name = "Hidden Treasure"; // Can be modified to generate different names
-		const searchRadius = Math.floor(Math.random() * 500) + 50; // Random radius between 50 and 500
+		const name = reasureTitle; // Can be modified to generate different names
+		const searchRadius = Math.floor(Math.random() * 25) + 5; // Random radius between 50 and 500
 		const isFound = false;
 		const coordinate = generateRandomCoordinateInIsrael();
 
