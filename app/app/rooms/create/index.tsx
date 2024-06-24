@@ -1,19 +1,8 @@
 import { Link, router } from "expo-router";
 import { useRef, useState } from "react";
-import {
-	Button,
-	FlatList,
-	ListRenderItemInfo,
-	Platform,
-	Pressable,
-	StyleSheet,
-	Text,
-	TextInput,
-	View,
-} from "react-native";
-import { MapView } from "../../../components/MapView/MapView";
-import { Treasure, Treasures } from "../../../models/Treasure.model";
+import { Button, StyleSheet, TextInput, View } from "react-native";
 import TreasuresListView from "../../../models/creator/TreasuresListView";
+import TreasuresMapView from "../../../models/creator/TreasuresMapView";
 
 export default function RoomCreationScreen() {
 	return (
@@ -58,16 +47,6 @@ function RoomTitleInput() {
 	);
 }
 
-function TreasuresMapView() {
-	const mapRef = useRef<MapView>(null);
-
-	return (
-		<View style={styles.mapContainer}>
-			<MapView ref={mapRef} />
-		</View>
-	);
-}
-
 const styles = StyleSheet.create({
 	container: {
 		marginTop: "10%",
@@ -81,9 +60,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "flex-end",
 		gap: 16,
-	},
-	mapContainer: {
-		flex: 1,
 	},
 
 	roomTitleInputContainer: {
