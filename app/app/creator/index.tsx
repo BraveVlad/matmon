@@ -8,21 +8,20 @@ import { useState } from "react";
 import { router } from "expo-router";
 
 export default function CreatorScreen() {
-	const [treasures, setTreasures] = useState<Treasures>([]);
+	const [treasuresList, setTreasuresList] = useState<Treasures>([]);
 	const [roomTitle, setRoomTitle] = useState<string>("");
+
+	const [isShowErrors, setIsShowErrors] = useState<boolean>(false);
 	const [titleError, setTitleError] = useState<string>("");
 	const [treasuresError, setTreasuresError] = useState<string>("");
 
 	console.log(roomTitle);
-	function onNewTreasure(newTreasure: Treasure): void {
-		setTreasures([...treasures, newTreasure]);
-		checkTreasuresValidity();
-	}
 
-	function checkTitleValidity() {
-		const trimmedTitle = roomTitle.trim();
+	function checkTitleValidity(title: string) {
+		const trimmedTitle = title.trim();
+		const titleLengthByComponents = Array.from(title).length;
 
-		if (trimmedTitle.length < 5) {
+		if (titleLengthByComponents < 5) {
 			setTitleError("Room title can't be less than 5 characters.");
 			return false;
 		}
@@ -40,7 +39,7 @@ export default function CreatorScreen() {
 		return true;
 	}
 
-	function checkTreasuresValidity() {
+	function checkTreasuresValidity(treasures: Treasures) {
 		if (treasures.length === 0) {
 			setTreasuresError("Room must contain at least one treasure.");
 			return false;
@@ -50,8 +49,9 @@ export default function CreatorScreen() {
 	}
 
 	function onSaveRoom() {
-		const isValidTreasure = checkTreasuresValidity();
-		const isValidTitle = checkTitleValidity();
+		setIsShowErrors(true);
+		const isValidTreasure = checkTreasuresValidity(treasuresList);
+		const isValidTitle = checkTitleValidity(roomTitle);
 
 		if (!isValidTreasure || !isValidTitle) {
 			return;
@@ -64,9 +64,15 @@ export default function CreatorScreen() {
 		router.replace("/rooms");
 	}
 
+	function onNewTreasure(newTreasure: Treasure): void {
+		const newTreasuresList = [...treasuresList, newTreasure];
+		setTreasuresList(newTreasuresList);
+		checkTreasuresValidity(newTreasuresList);
+	}
+
 	function handleTitleChange(roomTitle: string) {
 		setRoomTitle(roomTitle);
-		checkTitleValidity();
+		checkTitleValidity(roomTitle);
 	}
 
 	return (
@@ -80,18 +86,20 @@ export default function CreatorScreen() {
 				roomTitle={roomTitle}
 				onRoomTitleChanged={handleTitleChange}
 			/>
-			<Text style={styles.errorMessage}>
-				{titleError ? "⚠️" : ""}
-				{titleError}
-			</Text>
-
+			{isShowErrors && (
+				<Text style={styles.errorMessage}>
+					{titleError ? "⚠️" : ""}
+					{titleError}
+				</Text>
+			)}
 			<TreasuresMapView />
-
-			<Text style={styles.errorMessage}>
-				{titleError ? "⚠️" : ""}
-				{treasuresError}
-			</Text>
-			<TreasuresListView treasures={treasures} />
+			{isShowErrors && (
+				<Text style={styles.errorMessage}>
+					{treasuresError ? "⚠️" : ""}
+					{treasuresError}
+				</Text>
+			)}
+			<TreasuresListView treasures={treasuresList} />
 			{/* <TreasureCreateModalButton /> */}
 			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
 		</View>
