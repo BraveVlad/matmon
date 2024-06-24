@@ -6,6 +6,9 @@ import { Treasure, Treasures } from "../../models/Treasure.model";
 import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
 import { useState } from "react";
 import { router } from "expo-router";
+import GraphemeSplitter from "grapheme-splitter";
+
+const graphemeSplitter = new GraphemeSplitter();
 
 export default function CreatorScreen() {
 	const [treasuresList, setTreasuresList] = useState<Treasures>([]);
@@ -15,13 +18,11 @@ export default function CreatorScreen() {
 	const [titleError, setTitleError] = useState<string>("");
 	const [treasuresError, setTreasuresError] = useState<string>("");
 
-	console.log(roomTitle);
-
 	function checkTitleValidity(title: string) {
 		const trimmedTitle = title.trim();
-		const titleLengthByComponents = Array.from(title).length;
+		const titleLengthIncludingEmojis = graphemeSplitter.countGraphemes(title);
 
-		if (titleLengthByComponents < 5) {
+		if (titleLengthIncludingEmojis < 5) {
 			setTitleError("Room title can't be less than 5 characters.");
 			return false;
 		}
