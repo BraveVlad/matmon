@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useRef, useState } from "react";
 import {
 	Button,
@@ -24,6 +24,18 @@ export default function RoomCreationScreen() {
 			<RoomTitleInput />
 			<TreasuresMapView />
 			<TreasuresListView />
+			<TreasureCreateModalButton />
+		</View>
+	);
+}
+
+function TreasureCreateModalButton() {
+	return (
+		<View>
+			<Button
+				title="Add Treasure"
+				onPress={() => router.push("/rooms/create/treasure")}
+			/>
 		</View>
 	);
 }
