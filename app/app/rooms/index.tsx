@@ -4,7 +4,7 @@ import { router } from "expo-router";
 
 export default function RoomsScreen() {
 	function onCreateNewRoom() {
-		router.push("/rooms/create/");
+		router.push("/creator/");
 	}
 
 	return (
