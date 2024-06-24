@@ -9,6 +9,7 @@ import { router } from "expo-router";
 
 export default function CreatorScreen() {
 	const [treasures, setTreasures] = useState<Treasures>([]);
+	const [roomTitle, setRoomTitle] = useState<string>("");
 
 	function onNewTreasure(newTreasure: Treasure): void {
 		setTreasures([...treasures, newTreasure]);
@@ -16,7 +17,10 @@ export default function CreatorScreen() {
 
 	function onSaveRoom() {
 		// Validate treasures
+		console.log(`Treasures list length: `, treasures.length);
 		// Validate title
+		console.log(`Room title: `, roomTitle);
+
 		// Mutate.
 	}
 
@@ -30,7 +34,9 @@ export default function CreatorScreen() {
 				<Button title="Exit" onPress={onExitRoom} />
 				<Button title="Save" onPress={onSaveRoom} />
 			</View>
-			<RoomTitleInput />
+
+			<RoomTitleInput roomTitle={roomTitle} onRoomTitleChanged={setRoomTitle} />
+
 			<TreasuresMapView />
 			<TreasuresListView treasures={treasures} />
 			{/* <TreasureCreateModalButton /> */}
