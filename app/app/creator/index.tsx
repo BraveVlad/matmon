@@ -23,7 +23,7 @@ export default function CreatorScreen() {
 			</View>
 			<RoomTitleInput />
 			<TreasuresMapView />
-			<TreasuresListView />
+			<TreasuresListView treasures={treasures} />
 			{/* <TreasureCreateModalButton /> */}
 			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
 		</View>
