@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View, Text } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
@@ -10,22 +10,63 @@ import { router } from "expo-router";
 export default function CreatorScreen() {
 	const [treasures, setTreasures] = useState<Treasures>([]);
 	const [roomTitle, setRoomTitle] = useState<string>("");
+	const [titleError, setTitleError] = useState<string>("");
+	const [treasuresError, setTreasuresError] = useState<string>("");
 
+	console.log(roomTitle);
 	function onNewTreasure(newTreasure: Treasure): void {
 		setTreasures([...treasures, newTreasure]);
+		checkTreasuresValidity();
+	}
+
+	function checkTitleValidity() {
+		const trimmedTitle = roomTitle.trim();
+
+		if (trimmedTitle.length < 5) {
+			setTitleError("Room title can't be less than 5 characters.");
+			return false;
+		}
+
+		const specialCharactersRegex = /[@$%^*,."`:;{}<>\/\\]/;
+		const specialCharactersTestResult =
+			specialCharactersRegex.test(trimmedTitle);
+
+		if (specialCharactersTestResult) {
+			setTitleError("Room title contains invalid characters.");
+			return false;
+		}
+
+		setTitleError("");
+		return true;
+	}
+
+	function checkTreasuresValidity() {
+		if (treasures.length === 0) {
+			setTreasuresError("Room must contain at least one treasure.");
+			return false;
+		}
+		setTreasuresError("");
+		return true;
 	}
 
 	function onSaveRoom() {
-		// Validate treasures
-		console.log(`Treasures list length: `, treasures.length);
-		// Validate title
-		console.log(`Room title: `, roomTitle);
+		const isValidTreasure = checkTreasuresValidity();
+		const isValidTitle = checkTitleValidity();
 
-		// Mutate.
+		if (!isValidTreasure || !isValidTitle) {
+			return;
+		}
+
+		console.log("ok to create room");
 	}
 
 	function onExitRoom() {
 		router.replace("/rooms");
+	}
+
+	function handleTitleChange(roomTitle: string) {
+		setRoomTitle(roomTitle);
+		checkTitleValidity();
 	}
 
 	return (
@@ -35,9 +76,21 @@ export default function CreatorScreen() {
 				<Button title="Save" onPress={onSaveRoom} />
 			</View>
 
-			<RoomTitleInput roomTitle={roomTitle} onRoomTitleChanged={setRoomTitle} />
+			<RoomTitleInput
+				roomTitle={roomTitle}
+				onRoomTitleChanged={handleTitleChange}
+			/>
+			<Text style={styles.errorMessage}>
+				{titleError ? "⚠️" : ""}
+				{titleError}
+			</Text>
 
 			<TreasuresMapView />
+
+			<Text style={styles.errorMessage}>
+				{titleError ? "⚠️" : ""}
+				{treasuresError}
+			</Text>
 			<TreasuresListView treasures={treasures} />
 			{/* <TreasureCreateModalButton /> */}
 			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
@@ -58,5 +111,9 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "flex-end",
 		gap: 16,
+	},
+	errorMessage: {
+		color: "red",
+		fontWeight: "bold",
 	},
 });
