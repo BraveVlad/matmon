@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
 	Button,
 	FlatList,
@@ -8,6 +8,7 @@ import {
 	Pressable,
 	StyleSheet,
 	Text,
+	TextInput,
 	View,
 } from "react-native";
 import { MapView } from "../../../components/MapView/MapView";
@@ -16,17 +17,33 @@ import { Treasure, Treasures } from "../../../models/Treasure.model";
 export default function RoomCreationScreen() {
 	return (
 		<View style={styles.container}>
-			<Text>Welcome to Room Creation Screen!</Text>
 			<View style={styles.actionsBar}>
 				<Button title="Save" />
 				<Button title="Start" />
 			</View>
+			<RoomTitleInput />
 			<TreasuresMapView />
 			<TreasuresListView />
 		</View>
 	);
 }
 
+function RoomTitleInput() {
+	const [roomTitle, setRoomTitle] = useState<string>("");
+
+	return (
+		<View style={styles.roomTitleInputContainer}>
+			<TextInput
+				editable
+				style={styles.roomTitleInput}
+				maxLength={24}
+				value={roomTitle}
+				onChangeText={setRoomTitle}
+				placeholder="Enter room title"
+			/>
+		</View>
+	);
+}
 function TreasuresListView() {
 	const MOCK_TREASURES: Treasures = [
 		{
@@ -75,7 +92,7 @@ function TreasuresListView() {
 	}
 
 	return (
-		<View>
+		<View style={styles.treasuresList}>
 			<Text>Treasures List View</Text>
 			<FlatList
 				data={MOCK_TREASURES}
@@ -98,14 +115,37 @@ function TreasuresMapView() {
 
 const styles = StyleSheet.create({
 	container: {
+		marginTop: "10%",
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	actionsBar: {},
+	actionsBar: {
+		width: "75%",
+		flexDirection: "row",
+		justifyContent: "flex-end",
+		gap: 16,
+	},
 	mapContainer: {
-		width: 250,
-		height: 250,
+		flex: 1,
+	},
+	treasuresList: {
+		flex: 1,
+	},
+	roomTitleInputContainer: {
+		width: "80%",
+		padding: 16,
+		justifyContent: "center",
+		alignContent: "center",
+	},
+	roomTitleInput: {
+		textAlign: "center",
+		textAlignVertical: "center",
+		fontSize: 28,
+		fontWeight: "bold",
+		borderRadius: 8,
+		borderWidth: 2,
+		padding: 16,
 	},
 });
