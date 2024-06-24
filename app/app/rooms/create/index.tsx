@@ -1,8 +1,8 @@
-import { Link, router } from "expo-router";
-import { useRef, useState } from "react";
+import { router } from "expo-router";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 import TreasuresListView from "../../../models/creator/TreasuresListView";
 import TreasuresMapView from "../../../models/creator/TreasuresMapView";
+import RoomTitleInput from "../../../models/creator/RoomTitleInput";
 
 export default function RoomCreationScreen() {
 	return (
@@ -30,23 +30,6 @@ function TreasureCreateModalButton() {
 	);
 }
 
-function RoomTitleInput() {
-	const [roomTitle, setRoomTitle] = useState<string>("");
-
-	return (
-		<View style={styles.roomTitleInputContainer}>
-			<TextInput
-				editable
-				style={styles.roomTitleInput}
-				maxLength={24}
-				value={roomTitle}
-				onChangeText={setRoomTitle}
-				placeholder="Enter room title"
-			/>
-		</View>
-	);
-}
-
 const styles = StyleSheet.create({
 	container: {
 		marginTop: "10%",
@@ -60,21 +43,5 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "flex-end",
 		gap: 16,
-	},
-
-	roomTitleInputContainer: {
-		width: "80%",
-		padding: 16,
-		justifyContent: "center",
-		alignContent: "center",
-	},
-	roomTitleInput: {
-		textAlign: "center",
-		textAlignVertical: "center",
-		fontSize: 28,
-		fontWeight: "bold",
-		borderRadius: 8,
-		borderWidth: 2,
-		padding: 16,
 	},
 });
