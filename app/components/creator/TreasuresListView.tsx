@@ -5,7 +5,7 @@ import {
 	Text,
 	StyleSheet,
 } from "react-native";
-import { Treasures, Treasure } from "../Treasure.model";
+import { Treasures, Treasure } from "../../models/Treasure.model";
 
 export default function TreasuresListView() {
 	const MOCK_TREASURES: Treasures = [

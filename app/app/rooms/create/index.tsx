@@ -1,8 +1,8 @@
 import { Button, StyleSheet, View } from "react-native";
-import TreasuresListView from "../../../models/creator/TreasuresListView";
-import TreasuresMapView from "../../../models/creator/TreasuresMapView";
-import RoomTitleInput from "../../../models/creator/RoomTitleInput";
-import TreasureCreateModalButton from "../../../models/creator/TreasureCreateModalButton";
+import TreasuresListView from "../../../components/creator/TreasuresListView";
+import TreasuresMapView from "../../../components/creator/TreasuresMapView";
+import RoomTitleInput from "../../../components/creator/RoomTitleInput";
+import TreasureCreateModalButton from "../../../components/creator/TreasureCreateModalButton";
 
 export default function RoomCreationScreen() {
 	return (

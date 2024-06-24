@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { MapView } from "../../components/MapView/MapView";
+import { MapView } from "../MapView/MapView";
 import { useRef } from "react";
 
 export default function TreasuresMapView() {
