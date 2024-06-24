@@ -19,16 +19,6 @@ export default function CreateTreasureModal() {
 	return (
 		<View style={styles.container}>
 			<Text>Create a Room</Text>
-			<View style={styles.container}>
-				<FlatList
-					data={data}
-					renderItem={renderItem}
-					keyExtractor={(item) => item.id}
-				/>
- 			</View>
-			<Button onclick="">Create a new room</Button>
-
-
 		</View>
 	);
 }
