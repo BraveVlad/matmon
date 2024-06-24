@@ -5,21 +5,30 @@ import RoomTitleInput from "../../components/creator/RoomTitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
 import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
 import { useState } from "react";
+import { router } from "expo-router";
 
 export default function CreatorScreen() {
 	const [treasures, setTreasures] = useState<Treasures>([]);
-	console.log(treasures);
 
 	function onNewTreasure(newTreasure: Treasure): void {
-		console.log(`new treasure: ${newTreasure.name} generated.`);
 		setTreasures([...treasures, newTreasure]);
+	}
+
+	function onSaveRoom() {
+		// Validate treasures
+		// Validate title
+		// Mutate.
+	}
+
+	function onExitRoom() {
+		router.replace("/rooms");
 	}
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.actionsBar}>
-				<Button title="Save" />
-				<Button title="Start" />
+				<Button title="Exit" onPress={onExitRoom} />
+				<Button title="Save" onPress={onSaveRoom} />
 			</View>
 			<RoomTitleInput />
 			<TreasuresMapView />
@@ -32,7 +41,7 @@ export default function CreatorScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: "10%",
+		padding: "10%",
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
