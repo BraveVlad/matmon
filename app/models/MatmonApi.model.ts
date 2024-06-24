@@ -1,12 +1,14 @@
 import { Platform } from "react-native";
 
-const PERFIXES = {
+export const MATMON_API = {
+	base:
+		Platform.OS === "web"
+			? "http://localhost:3000"
+			: "http://192.168.1.43:3000",
+
 	rooms: "/rooms",
 };
-export function getApiUri() {
-	return Platform.OS === "web" ? "http://localhost:3000" : "192.168.1.43:3000";
-}
 
 export function getAllRoomsUri() {
-	return getApiUri + PERFIXES.rooms + "/all";
+	return MATMON_API.base + MATMON_API.rooms + "/all";
 }
