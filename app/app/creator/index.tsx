@@ -129,7 +129,11 @@ export default function CreatorScreen() {
 		<View style={styles.container}>
 			<View style={styles.actionsBar}>
 				<Button title="Exit" onPress={onExitRoom} />
-				<Button title="Save" onPress={onSaveRoom} />
+				<Button
+					disabled={createRoomMutation.isPending}
+					title="Save"
+					onPress={onSaveRoom}
+				/>
 			</View>
 
 			<RoomTitleInput
