@@ -64,7 +64,7 @@ router.post("/create", (request, response) => {
 
 	const newRoom: Room = {
 		...(room as NewRoom),
-		id: "room test",
+		id: `room-${MOCK_ROOMS.length}`,
 		creationDate: new Date(),
 	};
 
