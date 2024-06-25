@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { MapView } from "../MapView/MapView";
+import { MapView, PROVIDER_GOOGLE } from "../MapView/MapView";
 import { useRef } from "react";
 
 export default function TreasuresMapView() {
@@ -7,7 +7,7 @@ export default function TreasuresMapView() {
 
 	return (
 		<View style={styles.mapContainer}>
-			<MapView ref={mapRef} />
+			<MapView ref={mapRef} provider={PROVIDER_GOOGLE} />
 		</View>
 	);
 }
