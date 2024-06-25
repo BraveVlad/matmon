@@ -11,6 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(json());
+
 app.use("/rooms", RoomsRouter);
 
 app.get("/check", async (_, res) => {
