@@ -45,8 +45,7 @@ export default function CreatorScreen() {
 			console.log("variables:", variables);
 			console.log("data:", data);
 
-			// update rooms query / refetch rooms query
-			router.navigate("/rooms/");
+			router.replace("/rooms/");
 		},
 
 		onError: (error) => {
