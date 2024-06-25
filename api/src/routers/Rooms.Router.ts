@@ -44,6 +44,8 @@ router.get("/all", (_, response) => {
 router.post("/create", (request, response) => {
 	const { room } = request.body;
 
+	console.log(`Rooms: requested to create room from ip: ${request.ip}`);
+
 	const apiResponse: RoomsApiResponse = {
 		message: "OK",
 		data: [],
@@ -51,6 +53,11 @@ router.post("/create", (request, response) => {
 
 	if (!room) {
 		apiResponse.message = "INVALID_PARAMS";
+
+		console.error(
+			`Rooms: room creation request failed with error: ${apiResponse.message}`
+		);
+
 		response.status(400);
 		return response.json(apiResponse);
 	}
@@ -61,8 +68,13 @@ router.post("/create", (request, response) => {
 		creationDate: new Date(),
 	};
 
-	if (!newRoom.treasures.length) {
+	if (!newRoom.treasures || !newRoom.treasures.length) {
 		apiResponse.message = "NO_EMPTY_ROOMS";
+
+		console.error(
+			`Rooms: room creation request failed with error: ${apiResponse.message}`
+		);
+
 		response.status(400);
 		return response.json(apiResponse);
 	}
@@ -77,9 +89,11 @@ router.post("/create", (request, response) => {
 
 	MOCK_ROOMS.push(newRoom);
 
+	console.log(`Rooms: User ${newRoom.creator} created a new room:`, newRoom);
+
 	apiResponse.message = "ROOM_CREATED";
 	apiResponse.data?.push(newRoom);
 
-	response.status(200);
+	response.status(201);
 	return response.json(apiResponse);
 });
