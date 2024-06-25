@@ -11,30 +11,6 @@ import RoomsListViewItem from "./RoomsListViewItem";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
-const MOCK_ROOMS: Rooms = [
-	{
-		id: "1",
-		title: "first mock room",
-		creationDate: new Date(),
-		creator: undefined,
-		treasures: [],
-	},
-	{
-		id: "2",
-		title: "second mock room",
-		creationDate: new Date(),
-		creator: undefined,
-		treasures: [],
-	},
-	{
-		id: "3",
-		title: "third mock room",
-		creationDate: new Date(),
-		creator: undefined,
-		treasures: [],
-	},
-];
-
 type RoomsApiResponse = {
 	message: string;
 	data?: Rooms;
