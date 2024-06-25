@@ -5,6 +5,11 @@ export type RoomsApiResponse<T> = {
 	data: T;
 };
 
+export type KeysApiResponse = {
+	message: string;
+	key: string;
+};
+
 export const MATMON_API = {
 	base:
 		Platform.OS === "web"
