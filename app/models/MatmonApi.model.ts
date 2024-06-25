@@ -14,7 +14,7 @@ export const MATMON_API = {
 	base:
 		Platform.OS === "web"
 			? "http://localhost:3000"
-			: "http://192.168.1.43:3000",
+			: "http://192.168.1",
 
 	rooms: "/rooms",
 };
