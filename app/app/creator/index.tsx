@@ -7,8 +7,27 @@ import MockTreasureCreateButton from "../../components/creator/MockTreasureCreat
 import { useState } from "react";
 import { router } from "expo-router";
 import GraphemeSplitter from "grapheme-splitter";
+import { useMutation } from "@tanstack/react-query";
+import { NewRoom, Room } from "../../models/Room.model";
+import axios, { AxiosError } from "axios";
 
 const graphemeSplitter = new GraphemeSplitter();
+
+type RoomsApiResponse = {
+	message: string;
+	data: Room;
+};
+
+async function createNewRoom(room: NewRoom) {
+	const result = await axios.post<RoomsApiResponse>(
+		"http://localhost:3000/rooms/create",
+		{
+			room: room,
+		}
+	);
+
+	return result.data;
+}
 
 export default function CreatorScreen() {
 	const [treasuresList, setTreasuresList] = useState<Treasures>([]);
@@ -17,6 +36,31 @@ export default function CreatorScreen() {
 	const [isShowErrors, setIsShowErrors] = useState<boolean>(false);
 	const [titleError, setTitleError] = useState<string>("");
 	const [treasuresError, setTreasuresError] = useState<string>("");
+
+	const createRoomMutation = useMutation({
+		mutationKey: ["create-room"],
+		mutationFn: (room: NewRoom) => createNewRoom(room),
+		onSuccess: (data, variables) => {
+			console.log("create new room success!");
+			console.log("variables:", variables);
+			console.log("data:", data);
+
+			// update rooms query / refetch rooms query
+			router.navigate("/rooms/");
+		},
+
+		onError: (error) => {
+			const axiosError = error as AxiosError<RoomsApiResponse>;
+
+			if (!axiosError.response) {
+				console.error("error:", axiosError.message);
+				return;
+			}
+
+			const apiResonse = axiosError.response.data;
+			console.error("api message:", apiResonse.message);
+		},
+	});
 
 	function checkTitleValidity(title: string) {
 		const trimmedTitle = title.trim();
@@ -59,6 +103,12 @@ export default function CreatorScreen() {
 		}
 
 		console.log("ok to create room");
+		const newRoom: NewRoom = {
+			treasures: treasuresList,
+			title: roomTitle,
+			creator: "vlad",
+		};
+		createRoomMutation.mutate(newRoom);
 	}
 
 	function onExitRoom() {
