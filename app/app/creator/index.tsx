@@ -3,7 +3,28 @@ import { Button, StyleSheet, View } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
-import TreasureCreateModalButton from "../../components/creator/TreasureCreateModalButton";
+import { Treasure, Treasures } from "../../models/Treasure.model";
+import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
+import { useState } from "react";
+import { router } from "expo-router";
+import GraphemeSplitter from "grapheme-splitter";
+import { useMutation } from "@tanstack/react-query";
+import { NewRoom, Room } from "../../models/Room.model";
+import axios, { AxiosError } from "axios";
+import {
+	RoomsApiResponse,
+	postCreateRoomUri,
+} from "../../models/MatmonApi.model";
+
+const graphemeSplitter = new GraphemeSplitter();
+
+async function createNewRoom(room: NewRoom) {
+	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
+		room: room,
+	});
+
+	return result.data;
+}
 
 export default function CreatorScreen() {
   return (

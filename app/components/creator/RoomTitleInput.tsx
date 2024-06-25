@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 
-export default function RoomTitleInput() {
-	const [roomTitle, setRoomTitle] = useState<string>("");
+type RoomTitleInputProps = {
+	roomTitle: string;
+	onRoomTitleChanged: (roomTitle: string) => void;
+};
 
+export default function RoomTitleInput({
+	roomTitle,
+	onRoomTitleChanged,
+}: RoomTitleInputProps) {
 	return (
 		<View style={styles.roomTitleInputContainer}>
 			<TextInput
@@ -11,7 +17,7 @@ export default function RoomTitleInput() {
 				style={styles.roomTitleInput}
 				maxLength={24}
 				value={roomTitle}
-				onChangeText={setRoomTitle}
+				onChangeText={onRoomTitleChanged}
 				placeholder="Enter room title"
 			/>
 		</View>

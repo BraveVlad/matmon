@@ -5,7 +5,9 @@ export type Room = {
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;
-	creator: undefined; // TODO - Change to a User model
+	creator: string; // TODO - Change to a User model
 };
+
+export type NewRoom = Omit<Room, "id" | "creationDate">;
 
 export type Rooms = Room[];
