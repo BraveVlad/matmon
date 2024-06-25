@@ -21,7 +21,12 @@
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "com.matmon.app"
+			"package": "com.matmon.app",
+			"config": {
+				"googleMaps": {
+					"apiKey": ""
+				}
+			}
 		},
 		"web": {
 			"favicon": "./assets/favicon.png",
