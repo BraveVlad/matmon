@@ -10,13 +10,11 @@ import { Rooms, Room } from "../models/Room.model";
 import RoomsListViewItem from "./RoomsListViewItem";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { RoomsApiResponse } from "../models/MatmonApi.model";
+import { RoomsApiResponse, getAllRoomsUri } from "../models/MatmonApi.model";
 
 async function fetchRooms() {
 	try {
-		const result = await axios.get<RoomsApiResponse<Rooms>>(
-			"http://localhost:3000/rooms/all"
-		);
+		const result = await axios.get<RoomsApiResponse<Rooms>>(getAllRoomsUri());
 		const response = result.data;
 
 		if (!response || !response.data) {

@@ -10,17 +10,17 @@ import GraphemeSplitter from "grapheme-splitter";
 import { useMutation } from "@tanstack/react-query";
 import { NewRoom, Room } from "../../models/Room.model";
 import axios, { AxiosError } from "axios";
-import { RoomsApiResponse } from "../../models/MatmonApi.model";
+import {
+	RoomsApiResponse,
+	postCreateRoomUri,
+} from "../../models/MatmonApi.model";
 
 const graphemeSplitter = new GraphemeSplitter();
 
 async function createNewRoom(room: NewRoom) {
-	const result = await axios.post<RoomsApiResponse<Room>>(
-		"http://localhost:3000/rooms/create",
-		{
-			room: room,
-		}
-	);
+	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
+		room: room,
+	});
 
 	return result.data;
 }

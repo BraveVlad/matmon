@@ -17,3 +17,7 @@ export const MATMON_API = {
 export function getAllRoomsUri() {
 	return MATMON_API.base + MATMON_API.rooms + "/all";
 }
+
+export function postCreateRoomUri() {
+	return MATMON_API.base + MATMON_API.rooms + "/create";
+}
