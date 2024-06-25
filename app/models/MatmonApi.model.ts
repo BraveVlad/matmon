@@ -1,5 +1,10 @@
 import { Platform } from "react-native";
 
+export type RoomsApiResponse<T> = {
+	message: string;
+	data: T;
+};
+
 export const MATMON_API = {
 	base:
 		Platform.OS === "web"
