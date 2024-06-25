@@ -7,40 +7,12 @@ import {
 } from "react-native";
 import { Treasures, Treasure } from "../../models/Treasure.model";
 
-export default function TreasuresListView() {
-	const MOCK_TREASURES: Treasures = [
-		{
-			id: "1a2b3c",
-			name: "Golden Crown",
-			searchRadius: 150,
-			isFound: false,
-			coordinate: {
-				latitude: 34.052235,
-				longitude: -118.243683,
-			},
-		},
-		{
-			id: "4d5e6f",
-			name: "Ancient Amulet",
-			searchRadius: 200,
-			isFound: true,
-			coordinate: {
-				latitude: 40.712776,
-				longitude: -74.005974,
-			},
-		},
-		{
-			id: "7g8h9i",
-			name: "Pirate's Chest",
-			searchRadius: 300,
-			isFound: false,
-			coordinate: {
-				latitude: 25.761681,
-				longitude: -80.191788,
-			},
-		},
-	];
-
+type TreasuresListViewProps = {
+	treasures: Treasures;
+};
+export default function TreasuresListView({
+	treasures,
+}: TreasuresListViewProps) {
 	function renderTreasureListItem({
 		item,
 		index,
@@ -48,7 +20,10 @@ export default function TreasuresListView() {
 		return (
 			<View>
 				<Text>
-					{index} ) Treasure # {item.name}
+					{index + 1} ) Treasure #{item.id} - {item.name} - Coords:
+					{`${item.coordinate.latitude.toFixed(
+						3
+					)},${item.coordinate.longitude.toFixed(3)}`}
 				</Text>
 			</View>
 		);
@@ -58,7 +33,7 @@ export default function TreasuresListView() {
 		<View style={styles.treasuresList}>
 			<Text>Treasures List View</Text>
 			<FlatList
-				data={MOCK_TREASURES}
+				data={treasures}
 				keyExtractor={(treasure) => treasure.id}
 				renderItem={renderTreasureListItem}
 			/>

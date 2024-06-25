@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { MOCK_ROOMS } from "../data/rooms.Mock";
-import { Rooms } from "../models/Room.model";
+import { NewRoom, Room, Rooms } from "../models/Room.model";
 
 export const router = Router();
 
@@ -39,4 +39,61 @@ router.get("/all", (_, response) => {
 
 	response.status(200);
 	response.json(apiResponse);
+});
+
+router.post("/create", (request, response) => {
+	const { room } = request.body;
+
+	console.log(`Rooms: requested to create room from ip: ${request.ip}`);
+
+	const apiResponse: RoomsApiResponse = {
+		message: "OK",
+		data: [],
+	};
+
+	if (!room) {
+		apiResponse.message = "INVALID_PARAMS";
+
+		console.error(
+			`Rooms: room creation request failed with error: ${apiResponse.message}`
+		);
+
+		response.status(400);
+		return response.json(apiResponse);
+	}
+
+	const newRoom: Room = {
+		...(room as NewRoom),
+		id: `room-${MOCK_ROOMS.length}`,
+		creationDate: new Date(),
+	};
+
+	if (!newRoom.treasures || !newRoom.treasures.length) {
+		apiResponse.message = "NO_EMPTY_ROOMS";
+
+		console.error(
+			`Rooms: room creation request failed with error: ${apiResponse.message}`
+		);
+
+		response.status(400);
+		return response.json(apiResponse);
+	}
+
+	newRoom.treasures = newRoom.treasures.map((treasure, index) => {
+		return {
+			...treasure,
+			id: `treasure#${index}`,
+			isFound: false,
+		};
+	});
+
+	MOCK_ROOMS.push(newRoom);
+
+	console.log(`Rooms: User ${newRoom.creator} created a new room:`, newRoom);
+
+	apiResponse.message = "ROOM_CREATED";
+	apiResponse.data?.push(newRoom);
+
+	response.status(201);
+	return response.json(apiResponse);
 });
