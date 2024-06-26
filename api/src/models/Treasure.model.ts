@@ -58,6 +58,7 @@ export const treasureSchema = new Schema(
 		},
 	},
 	{
+		_id: false,
 		timestamps: true,
 	}
 );
