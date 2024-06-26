@@ -13,32 +13,33 @@ router.get("/check", (request, response) => {
 	response.status(200).json({ status: "Rooms router is OK" });
 });
 
-router.get("/all", (_, response) => {
-	const rooms = MOCK_ROOMS;
-
+router.get("/:user", async (request, response) => {
+	const { user } = request.params;
 	const apiResponse: RoomsApiResponse = {
 		message: "OK",
 		data: [],
 	};
 
-	if (!rooms) {
-		apiResponse.message = "Couldn't find rooms.";
+	try {
+		const rooms = await Room.find({ creator: user });
+
+		if (!rooms) {
+			apiResponse.message = "Couldn't find rooms.";
+			response.status(500);
+			response.json(apiResponse);
+			return;
+		}
+
+		apiResponse.data = rooms;
+
+		response.status(200);
+		response.json(apiResponse);
+	} catch (error) {
+		console.error(error);
+		apiResponse.message = "Couldn't find rooms for ${user}.";
 		response.status(500);
 		response.json(apiResponse);
-		return;
 	}
-
-	// if (rooms.length === 0) {
-	// 	apiResponse.message = "NO_ROOMS_FOUND";
-	// 	response.status(200);
-	// 	response.json(apiResponse);
-	// 	return;
-	// }
-
-	apiResponse.data = rooms;
-
-	response.status(200);
-	response.json(apiResponse);
 });
 
 router.post("/create", async (request, response) => {
