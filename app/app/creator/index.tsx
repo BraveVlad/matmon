@@ -4,8 +4,6 @@ import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
-import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
-import { useState } from "react";
 import { router } from "expo-router";
 import GraphemeSplitter from "grapheme-splitter";
 import { useMutation } from "@tanstack/react-query";
@@ -15,6 +13,7 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
+import TreasureCreateModalButton from "../../components/creator/TreasureCreateModalButton";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -33,9 +32,11 @@ export default function CreatorScreen() {
         <Button title="Save" onPress={() => console.log("Save pressed")} />
         <Button title="Start" onPress={() => console.log("Start pressed")} />
       </View>
-      <RoomTitleInput />
+      <RoomTitleInput roomTitle={""} onRoomTitleChanged={function (roomTitle: string): void {
+			  throw new Error("Function not implemented.");
+		  } } />
       <TreasuresMapView />
-      <TreasuresListView />
+      <TreasuresListView treasures={[]} />
       <TreasureCreateModalButton />
     </View>
   );
