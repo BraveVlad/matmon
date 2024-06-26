@@ -3,7 +3,6 @@ import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
-import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
 import { useState } from "react";
 import { router } from "expo-router";
 import GraphemeSplitter from "grapheme-splitter";
@@ -14,6 +13,7 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
+import TreasureCreateModalButton from "../../components/creator/TreasureCreateModalButton";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -150,8 +150,9 @@ export default function CreatorScreen() {
 				</Text>
 			)}
 			<TreasuresListView treasures={treasuresList} />
-			{/* <TreasureCreateModalButton /> */}
-			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
+			<TreasureCreateModalButton />
+
+			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
 		</View>
 	);
 }
