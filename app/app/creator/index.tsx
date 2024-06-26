@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import { Button, StyleSheet, View, Text } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import RoomTitleInput from "../../components/creator/RoomTitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
+import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
+import { useState } from "react";
 import { router } from "expo-router";
 import GraphemeSplitter from "grapheme-splitter";
 import { useMutation } from "@tanstack/react-query";
@@ -13,7 +14,6 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
-import TreasureCreateModalButton from "../../components/creator/TreasureCreateModalButton";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -21,12 +21,14 @@ async function createNewRoom(room: NewRoom) {
 	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
 		room: room,
 	});
+
 	return result.data;
 }
 
 export default function CreatorScreen() {
 	const [treasuresList, setTreasuresList] = useState<Treasures>([]);
 	const [roomTitle, setRoomTitle] = useState<string>("");
+
 	const [isShowErrors, setIsShowErrors] = useState<boolean>(false);
 	const [titleError, setTitleError] = useState<string>("");
 	const [treasuresError, setTreasuresError] = useState<string>("");
@@ -38,16 +40,20 @@ export default function CreatorScreen() {
 			console.log("create new room success!");
 			console.log("variables:", variables);
 			console.log("data:", data);
+
 			router.replace("/rooms/");
 		},
+
 		onError: (error) => {
 			const axiosError = error as AxiosError<RoomsApiResponse<Room>>;
+
 			if (!axiosError.response) {
 				console.error("error:", axiosError.message);
 				return;
 			}
-			const apiResponse = axiosError.response.data;
-			console.error("api message:", apiResponse.message);
+
+			const apiResonse = axiosError.response.data;
+			console.error("api message:", apiResonse.message);
 		},
 	});
 
@@ -61,7 +67,8 @@ export default function CreatorScreen() {
 		}
 
 		const specialCharactersRegex = /[@$%^*,."`:;{}<>\/\\]/;
-		const specialCharactersTestResult = specialCharactersRegex.test(trimmedTitle);
+		const specialCharactersTestResult =
+			specialCharactersRegex.test(trimmedTitle);
 
 		if (specialCharactersTestResult) {
 			setTitleError("Room title contains invalid characters.");
@@ -124,6 +131,7 @@ export default function CreatorScreen() {
 					onPress={onSaveRoom}
 				/>
 			</View>
+
 			<RoomTitleInput
 				roomTitle={roomTitle}
 				onRoomTitleChanged={handleTitleChange}
@@ -142,7 +150,8 @@ export default function CreatorScreen() {
 				</Text>
 			)}
 			<TreasuresListView treasures={treasuresList} />
-			<TreasureCreateModalButton onNewTreasure={onNewTreasure} />
+			{/* <TreasureCreateModalButton /> */}
+			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
 		</View>
 	);
 }
@@ -158,8 +167,8 @@ const styles = StyleSheet.create({
 	actionsBar: {
 		width: "75%",
 		flexDirection: "row",
-		justifyContent: "space-between",
-		marginBottom: 16,
+		justifyContent: "flex-end",
+		gap: 16,
 	},
 	errorMessage: {
 		color: "red",

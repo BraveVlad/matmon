@@ -1,18 +1,11 @@
 import { Treasures } from "./Treasure.model";
 
-type user = {
-	userId: string;
-	userName: string;
-	password: string;
-	activeGameIds: string[];  
-}
-
 export type Room = {
 	id: string;
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;
-	creator: user;
+	creator: string; // TODO - Change to a User model
 };
 
 export type NewRoom = Omit<Room, "id" | "creationDate">;
