@@ -24,7 +24,7 @@ export default function TreasuresMapView({ treasures }: TreasuresMapViewProps) {
                     longitudeDelta: 0.1,
                 }}
             >
-                {treasures?.map((treasure) => (
+                {treasures.map((treasure) => (
                     <Marker
                         key={treasure.id}
                         coordinate={{
@@ -42,7 +42,8 @@ export default function TreasuresMapView({ treasures }: TreasuresMapViewProps) {
 
 const styles = StyleSheet.create({
     mapContainer: {
-        flex: 1,
+        width: '100%',
+		height: 300,
     },
     map: {
         flex: 1,
