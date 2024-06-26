@@ -142,7 +142,7 @@ export default function CreatorScreen() {
 					{titleError}
 				</Text>
 			)}
-			<TreasuresMapView />
+			<TreasuresMapView treasures={treasuresList} />
 			{isShowErrors && (
 				<Text style={styles.errorMessage}>
 					{treasuresError ? "⚠️" : ""}
