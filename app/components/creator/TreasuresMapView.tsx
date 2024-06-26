@@ -1,26 +1,3 @@
-// import { View, StyleSheet } from "react-native";
-// import { MapView, PROVIDER_GOOGLE } from "../MapView/MapView";
-// import { PropsWithChildren, useRef, useState } from "react";
-// import React from "react";
-// import TreasuresListViewProps from "./TreasuresListView";
-
-// export default function TreasuresMapView( TreasuresListViewProps: PropsWithChildren) {
-// 	const mapRef = useRef<MapView>(null);
-// 	return (
-// 		<View style={styles.mapContainer}>
-// 			<MapView style={styles.map} ref={mapRef} provider={PROVIDER_GOOGLE} />
-// 		</View>
-// 	);
-// }
-// const styles = StyleSheet.create({
-// 	mapContainer: {
-// 		flex: 1,
-// 	},
-// 	map: {
-// 		width: 250,
-// 		height: 250,
-// 	},
-// });
 import React, { PropsWithChildren, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import {MapView, Marker, PROVIDER_GOOGLE } from "../MapView/MapView";
