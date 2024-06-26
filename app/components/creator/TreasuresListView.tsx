@@ -6,6 +6,7 @@ import {
 	StyleSheet,
 } from "react-native";
 import { Treasures, Treasure } from "../../models/Treasure.model";
+import React from "react";
 
 type TreasuresListViewProps = {
 	treasures: Treasures;
