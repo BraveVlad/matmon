@@ -41,7 +41,7 @@ router.get("/all", (_, response) => {
 	response.json(apiResponse);
 });
 
-router.post("/create", (request, response) => {
+router.post("/create", async (request, response) => {
 	const { room } = request.body;
 
 	console.log(`Rooms: requested to create room from ip: ${request.ip}`);
@@ -64,7 +64,6 @@ router.post("/create", (request, response) => {
 
 	const newRoom: Room = {
 		...(room as NewRoom),
-		id: `room-${MOCK_ROOMS.length}`,
 		creationDate: new Date(),
 	};
 
@@ -79,21 +78,32 @@ router.post("/create", (request, response) => {
 		return response.json(apiResponse);
 	}
 
-	newRoom.treasures = newRoom.treasures.map((treasure, index) => {
+	newRoom.treasures = newRoom.treasures.map((treasure) => {
 		return {
 			...treasure,
-			id: `treasure#${index}`,
 			isFound: false,
 		};
 	});
 
-	MOCK_ROOMS.push(newRoom);
+	try {
+		const roomModel = new Room({
+			...newRoom,
+		});
 
-	console.log(`Rooms: User ${newRoom.creator} created a new room:`, newRoom);
+		console.log(`Saving room ${roomModel.id} to db`);
+		await roomModel.save();
 
-	apiResponse.message = "ROOM_CREATED";
-	apiResponse.data?.push(newRoom);
+		console.log(`Rooms: User ${newRoom.creator} created a new room`);
 
-	response.status(201);
-	return response.json(apiResponse);
+		apiResponse.message = "ROOM_CREATED";
+		apiResponse.data?.push(newRoom);
+
+		response.status(201);
+		return response.json(apiResponse);
+	} catch (error) {
+		console.error(error);
+		apiResponse.message = "Couldn't create room.";
+		response.status(400);
+		return response.json(apiResponse);
+	}
 });
