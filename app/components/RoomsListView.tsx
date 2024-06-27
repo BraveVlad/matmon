@@ -31,7 +31,6 @@ async function fetchRooms(username: string) {
 			...room,
 			creationDate: new Date(room.creationDate),
 		}));
-		console.log(rooms);
 		return rooms;
 	} catch (error) {
 		const axiosError = error as AxiosError;
