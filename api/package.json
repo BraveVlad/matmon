@@ -4,7 +4,9 @@
 	"description": "Matmon API",
 	"main": "index.js",
 	"scripts": {
-		"dev": "ts-node-dev --transpile-only src/index.ts"
+		"dev": "ts-node-dev --transpile-only src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js"
 	},
 	"keywords": [],
 	"author": "Yizhak,Yotam,Gilad",
