@@ -19,17 +19,33 @@ app.get("/check", async (_, res) => {
 	res.json({ status: "Matmon backened is OK" });
 });
 
+function setupConnectionEvents() {
+	mongoose.connection.on("connected", () => console.log("mongoose connected"));
+	mongoose.connection.on("open", () => console.log("mongoose open"));
+	mongoose.connection.on("disconnected", () =>
+		console.log("mongoose disconnected")
+	);
+	mongoose.connection.on("reconnected", () =>
+		console.log("mongoose reconnected")
+	);
+	mongoose.connection.on("disconnecting", () =>
+		console.log("mongoose disconnecting")
+	);
+	mongoose.connection.on("close", () => console.log("mongoose close"));
+}
+
 async function init() {
 	if (!process.env.MONGO_CONN_STRING) {
 		throw new Error("Must provide connection string");
 	}
 
-	// await mongoose.connect(process.env.MONGO_CONN_STRING, {
-	// 	dbName: "",
-	// });
+	setupConnectionEvents();
+	await mongoose.connect(process.env.MONGO_CONN_STRING, {
+		dbName: process.env.MONGO_DB_NAME,
+	});
 
 	app.listen(process.env.MAIN_PORT, () =>
-		console.log(`Server running on http://127.0.0.1:${process.env.MAIN_PORT}`)
+		console.log(`Server running on http://0.0.0.0:${process.env.MAIN_PORT}`)
 	);
 }
 

@@ -1,7 +1,7 @@
 import { Treasures } from "./Treasure.model";
 
 export type Room = {
-	id: string;
+	_id: string;
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;

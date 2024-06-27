@@ -12,9 +12,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { RoomsApiResponse, getAllRoomsUri } from "../models/MatmonApi.model";
 
-async function fetchRooms() {
+async function fetchRooms(username: string) {
 	try {
-		const result = await axios.get<RoomsApiResponse<Rooms>>(getAllRoomsUri());
+		const result = await axios.get<RoomsApiResponse<Rooms>>(
+			getAllRoomsUri(username)
+		);
 		const response = result.data;
 
 		if (!response || !response.data) {
@@ -29,7 +31,6 @@ async function fetchRooms() {
 			...room,
 			creationDate: new Date(room.creationDate),
 		}));
-
 		return rooms;
 	} catch (error) {
 		const axiosError = error as AxiosError;
@@ -43,9 +44,13 @@ async function fetchRooms() {
 }
 
 export default function RoomsListView() {
+	const username: string = "vlad";
 	const { data, isLoading, isError, refetch } = useQuery({
-		queryKey: ["rooms"],
-		queryFn: fetchRooms,
+		queryKey: ["rooms", username],
+		queryFn: ({ queryKey }) => {
+			const [_, username] = queryKey;
+			return fetchRooms(username);
+		},
 	});
 
 	function RenderRoomsListItem({ item }: ListRenderItemInfo<Room>) {
@@ -70,7 +75,7 @@ export default function RoomsListView() {
 			style={styles.roomsList}
 			data={data}
 			renderItem={RenderRoomsListItem}
-			keyExtractor={(room) => room.id}
+			keyExtractor={(room) => room._id}
 		/>
 	);
 }
