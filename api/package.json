@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "ts-node-dev --transpile-only src/index.ts",
-		"build": "tsc",
+		"update": "npm install",
+		"build-tsc": "tsc",
+		"build": "npm run update && npm run build-tsc",
 		"start": "node dist/index.js"
 	},
 	"keywords": [],
