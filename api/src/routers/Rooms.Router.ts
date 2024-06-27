@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { MOCK_ROOMS } from "../data/rooms.Mock";
 import { NewRoom, Room, Rooms } from "../models/Room.model";
 
 export const router = Router();
@@ -13,35 +12,36 @@ router.get("/check", (request, response) => {
 	response.status(200).json({ status: "Rooms router is OK" });
 });
 
-router.get("/all", (_, response) => {
-	const rooms = MOCK_ROOMS;
-
+router.get("/:user", async (request, response) => {
+	const { user } = request.params;
 	const apiResponse: RoomsApiResponse = {
 		message: "OK",
 		data: [],
 	};
 
-	if (!rooms) {
-		apiResponse.message = "Couldn't find rooms.";
+	try {
+		const rooms = await Room.find({ creator: user });
+
+		if (!rooms) {
+			apiResponse.message = "Couldn't find rooms.";
+			response.status(500);
+			response.json(apiResponse);
+			return;
+		}
+
+		apiResponse.data = rooms;
+
+		response.status(200);
+		response.json(apiResponse);
+	} catch (error) {
+		console.error(error);
+		apiResponse.message = "Couldn't find rooms for ${user}.";
 		response.status(500);
 		response.json(apiResponse);
-		return;
 	}
-
-	// if (rooms.length === 0) {
-	// 	apiResponse.message = "NO_ROOMS_FOUND";
-	// 	response.status(200);
-	// 	response.json(apiResponse);
-	// 	return;
-	// }
-
-	apiResponse.data = rooms;
-
-	response.status(200);
-	response.json(apiResponse);
 });
 
-router.post("/create", (request, response) => {
+router.post("/create", async (request, response) => {
 	const { room } = request.body;
 
 	console.log(`Rooms: requested to create room from ip: ${request.ip}`);
@@ -64,7 +64,6 @@ router.post("/create", (request, response) => {
 
 	const newRoom: Room = {
 		...(room as NewRoom),
-		id: `room-${MOCK_ROOMS.length}`,
 		creationDate: new Date(),
 	};
 
@@ -79,21 +78,32 @@ router.post("/create", (request, response) => {
 		return response.json(apiResponse);
 	}
 
-	newRoom.treasures = newRoom.treasures.map((treasure, index) => {
+	newRoom.treasures = newRoom.treasures.map((treasure) => {
 		return {
 			...treasure,
-			id: `treasure#${index}`,
 			isFound: false,
 		};
 	});
 
-	MOCK_ROOMS.push(newRoom);
+	try {
+		const roomModel = new Room({
+			...newRoom,
+		});
 
-	console.log(`Rooms: User ${newRoom.creator} created a new room:`, newRoom);
+		console.log(`Saving room ${roomModel.id} to db`);
+		await roomModel.save();
 
-	apiResponse.message = "ROOM_CREATED";
-	apiResponse.data?.push(newRoom);
+		console.log(`Rooms: User ${newRoom.creator} created a new room`);
 
-	response.status(201);
-	return response.json(apiResponse);
+		apiResponse.message = "ROOM_CREATED";
+		apiResponse.data?.push(newRoom);
+
+		response.status(201);
+		return response.json(apiResponse);
+	} catch (error) {
+		console.error(error);
+		apiResponse.message = "Couldn't create room.";
+		response.status(400);
+		return response.json(apiResponse);
+	}
 });
