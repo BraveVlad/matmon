@@ -31,7 +31,7 @@ async function fetchRooms(username: string) {
 			...room,
 			creationDate: new Date(room.creationDate),
 		}));
-
+		console.log(rooms);
 		return rooms;
 	} catch (error) {
 		const axiosError = error as AxiosError;
@@ -76,7 +76,7 @@ export default function RoomsListView() {
 			style={styles.roomsList}
 			data={data}
 			renderItem={RenderRoomsListItem}
-			keyExtractor={(room) => room.id}
+			keyExtractor={(room) => room._id}
 		/>
 	);
 }

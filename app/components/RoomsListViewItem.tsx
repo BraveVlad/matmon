@@ -8,7 +8,7 @@ type RoomsListViewItemProps = {
 
 export default function RoomsListViewItem({ room }: RoomsListViewItemProps) {
 	function onOpenRoomScreen() {
-		router.push(`/rooms/view/${room.id}`);
+		router.push(`/rooms/view/${room._id}`);
 	}
 
 	return (
