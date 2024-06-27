@@ -1,38 +1,75 @@
 import { StyleSheet, View } from "react-native";
-import { MapView, Marker, PROVIDER_GOOGLE } from "../MapView/MapView";
-import { useRef } from "react";
-import { TreasureCoordinate } from "../../models/Treasure.model";
+import {
+	MapPressEvent,
+	MapView,
+	Marker,
+	MarkerDragStartEndEvent,
+	PROVIDER_GOOGLE,
+} from "../MapView/MapView";
+import { useRef, useState } from "react";
+import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 
 type TreasureCreationMapViewProps = {
-	treasureCoordinate: TreasureCoordinate;
+	onTreasureCoordinateChange: (coordinate: TreasureCoordinate) => void;
+	coordinate: TreasureCoordinate;
 	treasureTitle: string;
 };
 export default function TreasureCreationMapView({
-	treasureCoordinate,
+	onTreasureCoordinateChange,
+	coordinate,
 	treasureTitle,
 }: TreasureCreationMapViewProps) {
 	const mapRef = useRef<MapView>(null);
 
+	function setCoordinate(coordinate: TreasureCoordinate) {
+		onTreasureCoordinateChange(coordinate);
+	}
+
+	function handleOnDragEnd(event: MarkerDragStartEndEvent): void {
+		saveCoordinate(event);
+	}
+
+	function handleMapPress(event: MapPressEvent): void {
+		saveCoordinate(event);
+	}
+
+	function saveCoordinate(event: MapPressEvent | MarkerDragStartEndEvent) {
+		event.persist();
+		const coordinate = event.nativeEvent.coordinate;
+		setCoordinate(coordinate);
+		moveCamera(coordinate);
+	}
+
+	function moveCamera(coordinate: TreasureCoordinate) {
+		mapRef.current?.animateCamera({ center: coordinate });
+	}
+
 	return (
 		<View style={styles.mapContainer}>
 			<MapView
+				showsUserLocation
+				showsIndoors
 				style={styles.map}
 				ref={mapRef}
+				toolbarEnabled={false}
 				provider={PROVIDER_GOOGLE}
 				initialRegion={{
-					latitude: treasureCoordinate.latitude,
-					longitude: treasureCoordinate.longitude,
+					latitude: coordinate.latitude,
+					longitude: coordinate.longitude,
 					latitudeDelta: 0.1,
 					longitudeDelta: 0.1,
 				}}
+				onPress={handleMapPress}
+				zoomControlEnabled
 			>
 				<Marker
 					draggable
 					title={treasureTitle}
 					coordinate={{
-						latitude: treasureCoordinate.latitude,
-						longitude: treasureCoordinate.longitude,
+						latitude: coordinate.latitude,
+						longitude: coordinate.longitude,
 					}}
+					onDragEnd={handleOnDragEnd}
 				/>
 			</MapView>
 		</View>

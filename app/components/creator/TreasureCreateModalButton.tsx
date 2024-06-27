@@ -43,9 +43,22 @@ function CreateTreasureModal({
 		latitude: 31.771959,
 		longitude: 35.217018,
 	});
+	const [searchRadius, setSearchRadius] = useState<number>(5);
 
 	function handleOnClose() {
 		onCancelled();
+	}
+
+	function handleOnTreasureCoordinateChange(coordinate: TreasureCoordinate) {
+		setCoordinate(coordinate);
+	}
+
+	function handleSearchRadiusChange(text: string): void {
+		const searchRadius = Number(text);
+		if (isNaN(searchRadius)) {
+			return;
+		}
+		setSearchRadius(searchRadius);
 	}
 
 	return (
@@ -57,7 +70,8 @@ function CreateTreasureModal({
 				<View style={styles.contentContainer}>
 					<TreasureCreationMapView
 						treasureTitle={treasureTitle}
-						treasureCoordinate={coordinate}
+						coordinate={coordinate}
+						onTreasureCoordinateChange={handleOnTreasureCoordinateChange}
 					/>
 					<RoomTitleInput
 						roomTitle={treasureTitle}
@@ -66,8 +80,24 @@ function CreateTreasureModal({
 					<View>
 						<Text>Location:</Text>
 						<View>
-							<TextInput editable={false} defaultValue="0" />
-							<TextInput editable={false} defaultValue="0" />
+							<TextInput
+								editable={false}
+								value={coordinate.latitude.toString()}
+							/>
+							<TextInput
+								editable={false}
+								value={coordinate.longitude.toString()}
+							/>
+						</View>
+					</View>
+					<View>
+						<Text>Search Radius:</Text>
+						<View>
+							<TextInput
+								value={searchRadius.toString()}
+								onChangeText={handleSearchRadiusChange}
+								keyboardType="number-pad"
+							/>
 						</View>
 					</View>
 				</View>
