@@ -1,14 +1,8 @@
-import { router } from "expo-router";
-import {
-	View,
-	Button,
-	Text,
-	Modal,
-	StyleSheet,
-	BackHandler,
-} from "react-native";
-import { Treasure } from "../../models/Treasure.model";
+import { View, Button, Text, Modal, StyleSheet, TextInput } from "react-native";
+import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import { useState } from "react";
+import TreasureCreationMapView from "./TreasureCreationMapView";
+import RoomTitleInput from "./RoomTitleInput";
 
 export default function TreasureCreateModalButton() {
 	const [isShowTreasureModal, setIsShowTreasureModal] =
@@ -44,6 +38,12 @@ function CreateTreasureModal({
 	onCancelled,
 	onTreasureCreated,
 }: CreateTreasureModalProps) {
+	const [treasureTitle, setTreasureTitle] = useState<string>("");
+	const [coordinate, setCoordinate] = useState<TreasureCoordinate>({
+		latitude: 31.771959,
+		longitude: 35.217018,
+	});
+
 	function handleOnClose() {
 		onCancelled();
 	}
@@ -54,7 +54,23 @@ function CreateTreasureModal({
 				<View style={styles.titleContainer}>
 					<Text style={styles.title}>Treasure modal title</Text>
 				</View>
-				<View style={styles.contentContainer}></View>
+				<View style={styles.contentContainer}>
+					<TreasureCreationMapView
+						treasureTitle={treasureTitle}
+						treasureCoordinate={coordinate}
+					/>
+					<RoomTitleInput
+						roomTitle={treasureTitle}
+						onRoomTitleChanged={setTreasureTitle}
+					/>
+					<View>
+						<Text>Location:</Text>
+						<View>
+							<TextInput editable={false} defaultValue="0" />
+							<TextInput editable={false} defaultValue="0" />
+						</View>
+					</View>
+				</View>
 				<View style={styles.actions}>
 					<Button title="close" onPress={handleOnClose} />
 					<Button title="create" />
@@ -66,15 +82,15 @@ function CreateTreasureModal({
 
 const styles = StyleSheet.create({
 	modal: {
-		top: "25%",
-		height: "75%",
+		// top: "25%",
+		// height: "75%",
+		flex: 1,
 		backgroundColor: "white",
 	},
 	titleContainer: {},
 	title: {},
 	contentContainer: {
 		flex: 9,
-		// height: "50%",
 	},
 	actions: {
 		flex: 1,
