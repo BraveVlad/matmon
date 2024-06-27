@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { MOCK_ROOMS } from "../data/rooms.Mock";
 import { NewRoom, Room, Rooms } from "../models/Room.model";
 
 export const router = Router();
