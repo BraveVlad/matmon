@@ -13,14 +13,16 @@
 
 		/* Type Checking */
 		"strict": true /* Enable all strict type-checking options. */,
-		"noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
+		// "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
 
 		/* Completeness */
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
 		"outDir": "./dist",
 		"rootDir": "./src",
-		"moduleResolution": "node"
+		// "moduleResolution": "node"
+		"types": ["node"]
 	},
+	"include": ["src", "src/host.d.ts"],
 	"exclude": ["node_modules"]
 }
