@@ -8,6 +8,6 @@ export type Room = {
 	creator: string; // TODO - Change to a User model
 };
 
-export type NewRoom = Omit<Room, "id" | "creationDate">;
+export type NewRoom = Omit<Room, "_id" | "creationDate">;
 
 export type Rooms = Room[];
