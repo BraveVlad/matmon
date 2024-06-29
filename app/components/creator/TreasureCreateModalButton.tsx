@@ -3,7 +3,7 @@ import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import { useState } from "react";
 import TreasureCreationMapView from "./TreasureCreationMapView";
 import RoomTitleInput from "./RoomTitleInput";
-import Slider from "@react-native-community/slider";
+import SearchRadiusPicker from "./SearchRadiusPicker";
 
 export default function TreasureCreateModalButton() {
 	const [isShowTreasureModal, setIsShowTreasureModal] =
@@ -54,7 +54,7 @@ function CreateTreasureModal({
 		setCoordinate(coordinate);
 	}
 
-	function handleSearchRadiusChange(value: number) {
+	function handeOnSearchRadiusChange(value: number): void {
 		setSearchRadius(value);
 	}
 
@@ -88,22 +88,12 @@ function CreateTreasureModal({
 						</View>
 					</View>
 					<View>
-						<Text>Search Radius:</Text>
+						<Text>Search Radius: {searchRadius}</Text>
 						<View>
-							{/* <TextInput
-								value={searchRadius.toString()}
-								onChangeText={handleSearchRadiusChange}
-								keyboardType="number-pad"
-								maxLength={2}
-							/> */}
-							<Slider
-								style={{ width: "50%", height: 40 }}
-								minimumValue={1}
-								maximumValue={50}
-								minimumTrackTintColor="#FFFFFF"
-								maximumTrackTintColor="#000000"
-								step={1}
-								onValueChange={handleSearchRadiusChange}
+							<SearchRadiusPicker
+								minSearchRadius={1}
+								maxSearchRadius={50}
+								onSearchRadiusChange={handeOnSearchRadiusChange}
 							/>
 						</View>
 					</View>
