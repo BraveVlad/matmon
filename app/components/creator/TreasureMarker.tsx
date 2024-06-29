@@ -1,9 +1,9 @@
-import { Marker, MarkerDragStartEndEvent } from "react-native-maps";
 import { Treasure } from "../../models/Treasure.model";
 import { View } from "react-native";
 import SearchRadiusCircle from "./SearchRadiusCircle";
 import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-open.png";
 import TreasureClosedImage from "../../assets/images/treasure/treasure-chest-closed.png";
+import { Marker, MarkerDragStartEndEvent } from "../MapView/MapView";
 
 type TreasureMarkerProp = {
 	treasure: Treasure;

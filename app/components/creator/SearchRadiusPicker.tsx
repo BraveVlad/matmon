@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import SwitchView, { SwitchOption } from "./SwitchView";
-import { Slider } from "../SliderView/Slider";
+import Slider from "@react-native-community/slider";
 
 type SearchRadiusPickerPorps = {
 	searchRadius: number;

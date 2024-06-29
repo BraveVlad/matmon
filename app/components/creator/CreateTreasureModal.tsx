@@ -4,7 +4,6 @@ import {
 	Button,
 	Modal,
 	View,
-	Text,
 	ScrollView,
 	KeyboardAvoidingView,
 	Platform,
@@ -136,7 +135,6 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 	},
 	actionsContainer: {
-		flex: 1,
 		flexShrink: 0,
 		flexGrow: 0,
 		justifyContent: "center",

@@ -14,8 +14,6 @@ import {
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
 import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
-import TreasureLootInput from "../../components/creator/TreasureLootPicker";
-
 const graphemeSplitter = new GraphemeSplitter();
 
 async function createNewRoom(room: NewRoom) {
