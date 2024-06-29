@@ -3,6 +3,7 @@ import {
 	MapPressEvent,
 	MapView,
 	Marker,
+	Circle,
 	MarkerDragStartEndEvent,
 	PROVIDER_GOOGLE,
 } from "../MapView/MapView";
@@ -13,11 +14,13 @@ type TreasureCreationMapViewProps = {
 	onTreasureCoordinateChange: (coordinate: TreasureCoordinate) => void;
 	coordinate: TreasureCoordinate;
 	treasureTitle: string;
+	searchRadius: number;
 };
 export default function TreasureCreationMapView({
 	onTreasureCoordinateChange,
 	coordinate,
 	treasureTitle,
+	searchRadius,
 }: TreasureCreationMapViewProps) {
 	const mapRef = useRef<MapView>(null);
 
@@ -62,6 +65,13 @@ export default function TreasureCreationMapView({
 				onPress={handleMapPress}
 				zoomControlEnabled
 			>
+				<Circle
+					center={{
+						latitude: coordinate.latitude,
+						longitude: coordinate.longitude,
+					}}
+					radius={searchRadius}
+				/>
 				<Marker
 					draggable
 					title={treasureTitle}
