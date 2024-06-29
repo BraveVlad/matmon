@@ -27,7 +27,7 @@ export default function TitleInput({
 }
 const styles = StyleSheet.create({
 	roomTitleInputContainer: {
-		width: "80%",
+		width: "100%",
 		padding: 16,
 		justifyContent: "center",
 		alignContent: "center",

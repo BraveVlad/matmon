@@ -78,7 +78,12 @@ export default function SearchRadiusPicker({
 
 	return (
 		<View style={styles.container}>
-			<Text>Search Radius: {formatSearchRadiusLabel()}</Text>
+			<Text>
+				Search Radius:{" "}
+				<Text style={styles.searchRadiusValueLabel}>
+					{formatSearchRadiusLabel()}
+				</Text>
+			</Text>
 
 			<View style={styles.sliderContainer}>
 				<Text style={styles.sliderLabel}>{radiusLimits.min}</Text>
@@ -124,6 +129,10 @@ export default function SearchRadiusPicker({
 const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
+	},
+	searchRadiusValueLabel: {
+		fontSize: 18,
+		fontWeight: "bold",
 	},
 	sliderContainer: {
 		width: "100%",
