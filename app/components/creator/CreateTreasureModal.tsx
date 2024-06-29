@@ -8,6 +8,7 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 } from "react-native";
+
 import {
 	Treasure,
 	TreasureCoordinate,
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
 	actionsContainer: {
 		flexShrink: 0,
 		flexGrow: 0,
+
 		justifyContent: "center",
 	},
 	actions: {

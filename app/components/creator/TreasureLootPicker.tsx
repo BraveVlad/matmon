@@ -1,7 +1,6 @@
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import SwitchView, { SwitchOption } from "./SwitchView";
 import TitleInput from "./TitleInput";
-import { useState } from "react";
 
 export type LootType = "physical" | "digital";
 
@@ -38,6 +37,7 @@ export default function TreasureLootPicker({
 	return (
 		<View style={[styles.lootContainer]}>
 			<Text style={styles.label}>Loot Type: </Text>
+
 			<View style={styles.switch}>
 				<SwitchView
 					leftText="Physical"
@@ -47,7 +47,6 @@ export default function TreasureLootPicker({
 			</View>
 			{loot.type === "digital" && (
 				<TitleInput
-					// style={styles.title}
 					title={loot.value}
 					placeholder="Enter Digital Prize"
 					onTitleChanged={onDigitalLootChange}
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 18,
 	},
+
 	switch: {
 		justifyContent: "center",
 	},
