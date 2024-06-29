@@ -17,6 +17,8 @@ type RadiusLimits = {
 	max: number;
 };
 
+const MAX_METERS_RADIUS = 2000;
+const MAX_KM_RADIUS = 50;
 export default function SearchRadiusPicker({
 	searchRadius,
 	onSearchRadiusChange,
@@ -26,7 +28,7 @@ export default function SearchRadiusPicker({
 	const [units, setUnits] = useState<RadiusUnits>(RadiusUnits.meters);
 	const [radiusLimits, setRadiusLimits] = useState<RadiusLimits>({
 		min: 1,
-		max: 1000,
+		max: MAX_METERS_RADIUS,
 	});
 
 	function normalizeSearchRadius(sliderValue: number) {
@@ -51,11 +53,11 @@ export default function SearchRadiusPicker({
 	function handleSwitchUnits(newUnits: RadiusUnits) {
 		switch (newUnits) {
 			case RadiusUnits.meters:
-				radiusLimits.max = 1000;
+				radiusLimits.max = MAX_METERS_RADIUS;
 				setRadiusLimits(radiusLimits);
 				break;
 			case RadiusUnits.kilometers:
-				radiusLimits.max = 50;
+				radiusLimits.max = MAX_KM_RADIUS;
 				setRadiusLimits(radiusLimits);
 				break;
 		}
