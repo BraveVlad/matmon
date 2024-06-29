@@ -35,7 +35,7 @@ export default function SwitchView({
 		onOptionChange(side);
 	}
 	return (
-		<View style={style ? style : styles.switch}>
+		<View style={[style, styles.switch]}>
 			<SwitchButton
 				text={leftText}
 				style={buttonStyle}
@@ -72,7 +72,8 @@ function SwitchButton({
 	return (
 		<Pressable
 			style={[
-				style ? style : styles.switchButton,
+				styles.switchButton,
+				style,
 				isActive
 					? activeStyle
 						? activeStyle
