@@ -36,13 +36,8 @@ export default function TreasureLootPicker({
 	}
 
 	return (
-		<View
-			style={[
-				styles.lootContainer,
-				loot.type === "physical" ? styles.collapsedContainer : undefined,
-			]}
-		>
-			{/* <Text style={styles.title}>Loot Type: </Text> */}
+		<View style={[styles.lootContainer]}>
+			<Text style={styles.label}>Loot Type: </Text>
 			<View style={styles.switch}>
 				<SwitchView
 					leftText="Physical"
@@ -52,7 +47,7 @@ export default function TreasureLootPicker({
 			</View>
 			{loot.type === "digital" && (
 				<TitleInput
-					style={styles.title}
+					// style={styles.title}
 					title={loot.value}
 					placeholder="Enter Digital Prize"
 					onTitleChanged={onDigitalLootChange}
@@ -66,12 +61,16 @@ const styles = StyleSheet.create({
 	lootContainer: {
 		flex: 1,
 		alignItems: "center",
+		justifyContent: "flex-start",
+		gap: 6,
 		padding: 16,
 	},
-	collapsedContainer: {
-		flex: 0.5,
+
+	label: {
+		flexShrink: 0,
+		fontWeight: "bold",
+		fontSize: 18,
 	},
-	title: {},
 	switch: {
 		justifyContent: "center",
 	},
