@@ -7,8 +7,9 @@ import {
 	MarkerDragStartEndEvent,
 	PROVIDER_GOOGLE,
 } from "../MapView/MapView";
-import { useRef, useState } from "react";
-import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
+import { useRef } from "react";
+import { TreasureCoordinate } from "../../models/Treasure.model";
+import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-closed.png";
 
 type TreasureCreationMapViewProps = {
 	onTreasureCoordinateChange: (coordinate: TreasureCoordinate) => void;
@@ -66,6 +67,8 @@ export default function TreasureCreationMapView({
 				zoomControlEnabled
 			>
 				<Circle
+					fillColor="#b3d0ffb0"
+					strokeColor="#93bbfa"
 					center={{
 						latitude: coordinate.latitude,
 						longitude: coordinate.longitude,
@@ -80,6 +83,7 @@ export default function TreasureCreationMapView({
 						longitude: coordinate.longitude,
 					}}
 					onDragEnd={handleOnDragEnd}
+					image={TreasureOpenImage}
 				/>
 			</MapView>
 		</View>
