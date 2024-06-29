@@ -23,9 +23,11 @@ export default function TreasuresMapView({ treasures }: TreasuresMapViewProps) {
 					latitudeDelta: 0.1,
 					longitudeDelta: 0.1,
 				}}
+				zoomControlEnabled
+				toolbarEnabled={false}
 			>
 				{treasures.map((treasure) => (
-					<TreasureMarker treasure={treasure} />
+					<TreasureMarker key={treasure.id} treasure={treasure} />
 				))}
 			</MapView>
 		</View>

@@ -7,17 +7,20 @@ import {
 	PROVIDER_GOOGLE,
 } from "../MapView/MapView";
 import { useRef } from "react";
-import { TreasureCoordinate } from "../../models/Treasure.model";
+import { TreasureCoordinate, Treasures } from "../../models/Treasure.model";
 import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-closed.png";
 import SearchRadiusCircle from "./SearchRadiusCircle";
+import TreasureMarker from "./TreasureMarker";
 
 type TreasureCreationMapViewProps = {
+	otherTreasures: Treasures;
 	onTreasureCoordinateChange: (coordinate: TreasureCoordinate) => void;
 	coordinate: TreasureCoordinate;
 	treasureTitle: string;
 	searchRadius: number;
 };
 export default function TreasureCreationMapView({
+	otherTreasures,
 	onTreasureCoordinateChange,
 	coordinate,
 	treasureTitle,
@@ -55,6 +58,7 @@ export default function TreasureCreationMapView({
 				showsIndoors
 				style={styles.map}
 				ref={mapRef}
+				zoomControlEnabled
 				toolbarEnabled={false}
 				provider={PROVIDER_GOOGLE}
 				initialRegion={{
@@ -64,8 +68,11 @@ export default function TreasureCreationMapView({
 					longitudeDelta: 0.1,
 				}}
 				onPress={handleMapPress}
-				zoomControlEnabled
 			>
+				{otherTreasures &&
+					otherTreasures.map((treasure) => (
+						<TreasureMarker key={treasure.id} treasure={treasure} />
+					))}
 				<SearchRadiusCircle center={coordinate} radius={searchRadius} />
 				<Marker
 					draggable

@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { StyleSheet, Button, Modal, View, Text } from "react-native";
-import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
+import {
+	Treasure,
+	TreasureCoordinate,
+	Treasures,
+} from "../../models/Treasure.model";
 import SearchRadiusPicker from "./SearchRadiusPicker";
 import TitleInput from "./TitleInput";
 import TreasureCreationMapView from "./TreasureCreationMapView";
 import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
 
 type CreateTreasureModalProps = {
+	otherTreasures: Treasures;
 	isVisible: boolean;
 	onCancelled: () => void;
 	onTreasureCreated: (treasure: Treasure) => void;
 };
 export default function CreateTreasureModal({
+	otherTreasures,
 	isVisible,
 	onCancelled,
 	onTreasureCreated,
@@ -71,11 +77,9 @@ export default function CreateTreasureModal({
 	return (
 		<Modal animationType="slide" transparent={true} visible={isVisible}>
 			<View style={styles.modal}>
-				<View style={styles.titleContainer}>
-					<Text style={styles.title}>Treasure modal title</Text>
-				</View>
 				<View style={styles.contentContainer}>
 					<TreasureCreationMapView
+						otherTreasures={otherTreasures}
 						treasureTitle={treasureTitle}
 						coordinate={coordinate}
 						searchRadius={searchRadius}
@@ -83,7 +87,7 @@ export default function CreateTreasureModal({
 					/>
 					<TitleInput
 						title={treasureTitle}
-						placeholder="Enter treasure name"
+						placeholder="New treasure name"
 						onTitleChanged={setTreasureTitle}
 					/>
 

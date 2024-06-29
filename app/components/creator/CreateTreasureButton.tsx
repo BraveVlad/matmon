@@ -1,12 +1,14 @@
 import { View, Button, StyleSheet } from "react-native";
 import { useState } from "react";
 import CreateTreasureModal from "./CreateTreasureModal";
-import { Treasure } from "../../models/Treasure.model";
+import { Treasure, Treasures } from "../../models/Treasure.model";
 
 type CreateTreasureButtonProps = {
+	otherTreasures: Treasures;
 	onNewTreasure: (treasure: Treasure) => void;
 };
 export default function CreateTreasureButton({
+	otherTreasures,
 	onNewTreasure,
 }: CreateTreasureButtonProps) {
 	const [isShowTreasureModal, setIsShowTreasureModal] =
@@ -25,6 +27,7 @@ export default function CreateTreasureButton({
 		<View>
 			<Button title="Add Treasure" onPress={openCreateTreasureModal} />
 			<CreateTreasureModal
+				otherTreasures={otherTreasures}
 				isVisible={isShowTreasureModal}
 				onCancelled={() => {
 					setIsShowTreasureModal(false);

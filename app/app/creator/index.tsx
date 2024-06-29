@@ -157,7 +157,10 @@ export default function CreatorScreen() {
 			)}
 			<TreasuresListView treasures={treasuresList} />
 
-			<CreateTreasureButton onNewTreasure={onNewTreasure} />
+			<CreateTreasureButton
+				otherTreasures={treasuresList}
+				onNewTreasure={onNewTreasure}
+			/>
 			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
 		</View>
 	);
