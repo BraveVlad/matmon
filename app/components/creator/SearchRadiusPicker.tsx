@@ -21,12 +21,13 @@ export default function SearchRadiusPicker({
 	searchRadius,
 	onSearchRadiusChange,
 }: SearchRadiusPickerPorps) {
+	const [sliderValue, setSliderValue] = useState<number>(1);
+
 	const [units, setUnits] = useState<RadiusUnits>(RadiusUnits.meters);
 	const [radiusLimits, setRadiusLimits] = useState<RadiusLimits>({
 		min: 1,
 		max: 1000,
 	});
-	const [, forceUpdateSlider] = useReducer((x) => x + 1, 0);
 
 	function normalizeSearchRadius(sliderValue: number) {
 		return (
@@ -34,15 +35,21 @@ export default function SearchRadiusPicker({
 			radiusLimits.min
 		);
 	}
-	function handleOnValueChange(sliderValue: number) {
-		const normalizedSearchRadius = normalizeSearchRadius(sliderValue);
-		const multipliedByChosenUnitsSearchRadius = normalizedSearchRadius * units;
+	function handleOnValueChange(newSliderValue: number, newUnits?: RadiusUnits) {
+		const normalizedSearchRadius = normalizeSearchRadius(newSliderValue);
+		const unitsToMultiplyWith = newUnits ? newUnits : units;
+		const multipliedByChosenUnitsSearchRadius =
+			normalizedSearchRadius * unitsToMultiplyWith;
 		onSearchRadiusChange(multipliedByChosenUnitsSearchRadius);
 	}
 
-	function handleSwitchUnits(units: RadiusUnits) {
-		setUnits(units);
-		switch (units) {
+	function onSliderValueChange(newSliderValue: number) {
+		setSliderValue(newSliderValue);
+		handleOnValueChange(newSliderValue);
+	}
+
+	function handleSwitchUnits(newUnits: RadiusUnits) {
+		switch (newUnits) {
 			case RadiusUnits.meters:
 				radiusLimits.max = 1000;
 				setRadiusLimits(radiusLimits);
@@ -52,15 +59,19 @@ export default function SearchRadiusPicker({
 				setRadiusLimits(radiusLimits);
 				break;
 		}
-		forceUpdateSlider();
+		setUnits(newUnits);
+		handleOnValueChange(sliderValue, newUnits);
+	}
+
+	function formatSearchRadiusLabel() {
+		const decimalPoint = units.toString().length - 1;
+		const unitName = RadiusUnits[units];
+		return `${(searchRadius / units).toFixed(decimalPoint)} ${unitName}`;
 	}
 
 	return (
 		<View style={styles.container}>
-			<Text>
-				Search Radius: {(searchRadius / units).toFixed(2)}{" "}
-				{units === RadiusUnits.meters ? "meters" : "kilometers"}
-			</Text>
+			<Text>Search Radius: {formatSearchRadiusLabel()}</Text>
 
 			<View style={styles.sliderContainer}>
 				<Text style={styles.sliderLabel}>{radiusLimits.min}</Text>
@@ -71,7 +82,7 @@ export default function SearchRadiusPicker({
 					minimumValue={1}
 					maximumValue={100}
 					step={1}
-					onValueChange={handleOnValueChange}
+					onValueChange={onSliderValueChange}
 				/>
 				<Text style={styles.sliderLabel}>{radiusLimits.max}</Text>
 			</View>
