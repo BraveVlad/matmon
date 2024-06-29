@@ -1,4 +1,12 @@
-import { Button, StyleSheet, View, Text } from "react-native";
+import {
+	Button,
+	StyleSheet,
+	View,
+	Text,
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+} from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import TitleInput from "../../components/creator/TitleInput";
@@ -126,55 +134,64 @@ export default function CreatorScreen() {
 	}
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.actionsBar}>
-				<Button title="Exit" onPress={onExitRoom} />
-				<Button
-					disabled={createRoomMutation.isPending}
-					title="Save"
-					onPress={onSaveRoom}
-				/>
-			</View>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={styles.container}
+		>
+			<ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
+				<View>
+					<View style={styles.actionsBar}>
+						<Button title="Exit" onPress={onExitRoom} />
+						<Button
+							disabled={createRoomMutation.isPending}
+							title="Save"
+							onPress={onSaveRoom}
+						/>
+					</View>
 
-			<TitleInput
-				title={roomTitle}
-				placeholder="Enter room title"
-				onTitleChanged={handleTitleChange}
-			/>
-			{isShowErrors && (
-				<Text style={styles.errorMessage}>
-					{titleError ? "⚠️" : ""}
-					{titleError}
-				</Text>
-			)}
-			<TreasuresMapView treasures={treasuresList} />
-			{isShowErrors && (
-				<Text style={styles.errorMessage}>
-					{treasuresError ? "⚠️" : ""}
-					{treasuresError}
-				</Text>
-			)}
-			<TreasuresListView treasures={treasuresList} />
+					<TitleInput
+						title={roomTitle}
+						placeholder="Enter room title"
+						onTitleChanged={handleTitleChange}
+					/>
+					{isShowErrors && (
+						<Text style={styles.errorMessage}>
+							{titleError ? "⚠️" : ""}
+							{titleError}
+						</Text>
+					)}
+					<TreasuresMapView treasures={treasuresList} />
+					{isShowErrors && (
+						<Text style={styles.errorMessage}>
+							{treasuresError ? "⚠️" : ""}
+							{treasuresError}
+						</Text>
+					)}
+					<TreasuresListView treasures={treasuresList} />
 
-			<CreateTreasureButton
-				otherTreasures={treasuresList}
-				onNewTreasure={onNewTreasure}
-			/>
-			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
-		</View>
+					<CreateTreasureButton
+						otherTreasures={treasuresList}
+						onNewTreasure={onNewTreasure}
+					/>
+				</View>
+			</ScrollView>
+		</KeyboardAvoidingView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		padding: "10%",
+		padding: "2%",
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
 	},
+	scrollView: {
+		flex: 1,
+	},
 	actionsBar: {
-		width: "75%",
+		width: "100%",
 		flexDirection: "row",
 		justifyContent: "flex-end",
 		gap: 16,

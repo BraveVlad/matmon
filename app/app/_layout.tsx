@@ -8,32 +8,39 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  useReactQueryDevTools(queryClient);
+	useReactQueryDevTools(queryClient);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TopBar />
-      <Slot />
-      {Platform.OS === "web" && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
-  );
+	return (
+		<QueryClientProvider client={queryClient}>
+			<TopBar />
+			<Slot />
+			{Platform.OS === "web" && <ReactQueryDevtools initialIsOpen={false} />}
+		</QueryClientProvider>
+	);
 }
 
 function TopBar() {
-  const currentPath = usePathname();
-  const isIndex = currentPath === "/" ? true : false;
-  console.log(currentPath);
+	const currentPath = usePathname();
+	const isIndex = currentPath === "/" ? true : false;
+	console.log(currentPath);
 
-  function handleBackButton() {
-    router.back();
-  }
+	function handleBackButton() {
+		router.back();
+	}
 
-  return (
-	<SafeAreaView>
-    <View style={{ flexDirection: "row",  backgroundColor: '#7BFEF9', height: 44, alignItems: 'center', }}>
-      {!isIndex && <Button title="⬅️" onPress={handleBackButton} />}
-      <Text style={{margin: 'auto'}}>Matmon</Text>
-    </View>
-    </SafeAreaView>
-  );
+	return (
+		<SafeAreaView>
+			<View
+				style={{
+					flexDirection: "row",
+					backgroundColor: "#7BFEF9",
+					height: 44,
+					alignItems: "center",
+				}}
+			>
+				{!isIndex && <Button title="⬅️" onPress={handleBackButton} />}
+				<Text style={{ margin: "auto" }}>Matmon</Text>
+			</View>
+		</SafeAreaView>
+	);
 }
