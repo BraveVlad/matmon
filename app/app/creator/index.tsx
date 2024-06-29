@@ -1,9 +1,8 @@
 import { Button, StyleSheet, View, Text } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
-import RoomTitleInput from "../../components/creator/RoomTitleInput";
+import TitleInput from "../../components/creator/TitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
-import MockTreasureCreateButton from "../../components/creator/MockTreasureCreateButton";
 import { useState } from "react";
 import { router } from "expo-router";
 import GraphemeSplitter from "grapheme-splitter";
@@ -14,6 +13,8 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
+import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
+import TreasureLootInput from "../../components/creator/TreasureLootPicker";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -111,7 +112,11 @@ export default function CreatorScreen() {
 	}
 
 	function onNewTreasure(newTreasure: Treasure): void {
+		const newTreasureId = treasuresList.length + 1;
+		newTreasure.id = `treasure#` + newTreasureId;
+
 		const newTreasuresList = [...treasuresList, newTreasure];
+
 		setTreasuresList(newTreasuresList);
 		checkTreasuresValidity(newTreasuresList);
 	}
@@ -132,9 +137,10 @@ export default function CreatorScreen() {
 				/>
 			</View>
 
-			<RoomTitleInput
-				roomTitle={roomTitle}
-				onRoomTitleChanged={handleTitleChange}
+			<TitleInput
+				title={roomTitle}
+				placeholder="Enter room title"
+				onTitleChanged={handleTitleChange}
 			/>
 			{isShowErrors && (
 				<Text style={styles.errorMessage}>
@@ -150,8 +156,12 @@ export default function CreatorScreen() {
 				</Text>
 			)}
 			<TreasuresListView treasures={treasuresList} />
-			{/* <TreasureCreateModalButton /> */}
-			<MockTreasureCreateButton onNewTreasure={onNewTreasure} />
+
+			<CreateTreasureButton
+				otherTreasures={treasuresList}
+				onNewTreasure={onNewTreasure}
+			/>
+			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
 		</View>
 	);
 }
