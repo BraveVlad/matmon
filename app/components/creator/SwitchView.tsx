@@ -1,17 +1,31 @@
 import { useState } from "react";
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import {
+	StyleSheet,
+	View,
+	Pressable,
+	Text,
+	StyleProp,
+	ViewStyle,
+} from "react-native";
 
 type SwitchOption = "left" | "right";
 
 type SwitchViewProps = {
 	leftText: string;
 	rightText: string;
+	style?: StyleProp<ViewStyle>;
+	buttonStyle?: StyleProp<ViewStyle>;
+	activeButtonStyle?: StyleProp<ViewStyle>;
+
 	onOptionChange: (option: SwitchOption) => void;
 };
 
 export default function SwitchView({
 	leftText,
 	rightText,
+	style,
+	buttonStyle,
+	activeButtonStyle,
 	onOptionChange,
 }: SwitchViewProps) {
 	const [activeOption, setActiveOption] = useState<SwitchOption>("left");
@@ -21,14 +35,18 @@ export default function SwitchView({
 		onOptionChange(side);
 	}
 	return (
-		<View style={styles.switchButton}>
+		<View style={style ? style : styles.switch}>
 			<SwitchButton
-				text={rightText}
+				text={leftText}
+				style={buttonStyle}
+				activeStyle={activeButtonStyle}
 				onPress={() => onSwitch("left")}
 				isActive={activeOption === "left"}
 			/>
 			<SwitchButton
 				text={rightText}
+				style={buttonStyle}
+				activeStyle={activeButtonStyle}
 				onPress={() => onSwitch("right")}
 				isActive={activeOption === "right"}
 			/>
@@ -39,15 +57,27 @@ export default function SwitchView({
 type SwitchButtonProps = {
 	text: string;
 	isActive: boolean;
+	style: StyleProp<ViewStyle>;
+	activeStyle: StyleProp<ViewStyle>;
 	onPress: () => void;
 };
 
-function SwitchButton({ text, isActive, onPress }: SwitchButtonProps) {
+function SwitchButton({
+	text,
+	isActive,
+	style,
+	activeStyle,
+	onPress,
+}: SwitchButtonProps) {
 	return (
 		<Pressable
 			style={[
-				styles.switchOption,
-				isActive ? styles.switchOptionActive : undefined,
+				style ? style : styles.switchButton,
+				isActive
+					? activeStyle
+						? activeStyle
+						: styles.switchButtonActive
+					: undefined,
 			]}
 			onPress={onPress}
 		>
@@ -57,11 +87,11 @@ function SwitchButton({ text, isActive, onPress }: SwitchButtonProps) {
 }
 
 const styles = StyleSheet.create({
-	switchButton: {
+	switch: {
 		flexDirection: "row",
 		gap: 16,
 	},
-	switchOption: {
+	switchButton: {
 		justifyContent: "center",
 		alignItems: "center",
 		aspectRatio: 2 / 1,
@@ -71,7 +101,7 @@ const styles = StyleSheet.create({
 		borderColor: "grey",
 		backgroundColor: "grey",
 	},
-	switchOptionActive: {
+	switchButtonActive: {
 		backgroundColor: "white",
 		borderColor: "green",
 		fontWeight: "bold",

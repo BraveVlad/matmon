@@ -131,23 +131,4 @@ const styles = StyleSheet.create({
 	sliderLabel: {
 		fontSize: 18,
 	},
-	switchButton: {
-		flexDirection: "row",
-		gap: 16,
-	},
-	switchOption: {
-		justifyContent: "center",
-		alignItems: "center",
-		aspectRatio: 2 / 1,
-		borderWidth: 2,
-		borderRadius: 32,
-		padding: 8,
-		borderColor: "grey",
-		backgroundColor: "grey",
-	},
-	switchOptionActive: {
-		backgroundColor: "white",
-		borderColor: "green",
-		fontWeight: "bold",
-	},
 });
