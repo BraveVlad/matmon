@@ -74,7 +74,7 @@ function CreateTreasureModal({
 						roomTitle={treasureTitle}
 						onRoomTitleChanged={setTreasureTitle}
 					/>
-					<View>
+					{/* <View>
 						<Text>Location:</Text>
 						<View>
 							<TextInput
@@ -86,7 +86,7 @@ function CreateTreasureModal({
 								value={coordinate.longitude.toString()}
 							/>
 						</View>
-					</View>
+					</View> */}
 					<View>
 						<Text>Search Radius: {searchRadius}</Text>
 						<View>
