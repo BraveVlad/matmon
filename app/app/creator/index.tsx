@@ -1,7 +1,7 @@
 import { Button, StyleSheet, View, Text } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
-import RoomTitleInput from "../../components/creator/RoomTitleInput";
+import TitleInput from "../../components/creator/TitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
 import { useState } from "react";
 import { router } from "expo-router";
@@ -132,9 +132,10 @@ export default function CreatorScreen() {
 				/>
 			</View>
 
-			<RoomTitleInput
-				roomTitle={roomTitle}
-				onRoomTitleChanged={handleTitleChange}
+			<TitleInput
+				title={roomTitle}
+				placeholder="Enter room title"
+				onTitleChanged={handleTitleChange}
 			/>
 			{isShowErrors && (
 				<Text style={styles.errorMessage}>

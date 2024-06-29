@@ -82,6 +82,7 @@ export default function TreasureCreationMapView({
 						latitude: coordinate.latitude,
 						longitude: coordinate.longitude,
 					}}
+					anchor={{ x: 0.5, y: 0.5 }}
 					onDragEnd={handleOnDragEnd}
 					image={TreasureOpenImage}
 				/>

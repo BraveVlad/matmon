@@ -2,7 +2,7 @@ import { View, Button, Text, Modal, StyleSheet, TextInput } from "react-native";
 import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import { useState } from "react";
 import TreasureCreationMapView from "./TreasureCreationMapView";
-import RoomTitleInput from "./RoomTitleInput";
+import TitleInput from "./TitleInput";
 import SearchRadiusPicker from "./SearchRadiusPicker";
 
 export default function TreasureCreateModalButton() {
@@ -71,9 +71,10 @@ function CreateTreasureModal({
 						searchRadius={searchRadius}
 						onTreasureCoordinateChange={handleOnTreasureCoordinateChange}
 					/>
-					<RoomTitleInput
-						roomTitle={treasureTitle}
-						onRoomTitleChanged={setTreasureTitle}
+					<TitleInput
+						title={treasureTitle}
+						placeholder="Enter treasure name"
+						onTitleChanged={setTreasureTitle}
 					/>
 					{/* <View>
 						<Text>Location:</Text>

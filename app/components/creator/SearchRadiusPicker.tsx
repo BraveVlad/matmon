@@ -17,8 +17,11 @@ type RadiusLimits = {
 	max: number;
 };
 
-const MAX_METERS_RADIUS = 2000;
-const MAX_KM_RADIUS = 50;
+const MIN_METERS_RADIUS = 1;
+const MAX_METERS_RADIUS = 100;
+const MAX_KM_RADIUS = 2;
+const MIN_KM_RADIUS = 0.1;
+
 export default function SearchRadiusPicker({
 	searchRadius,
 	onSearchRadiusChange,
@@ -53,10 +56,12 @@ export default function SearchRadiusPicker({
 	function handleSwitchUnits(newUnits: RadiusUnits) {
 		switch (newUnits) {
 			case RadiusUnits.meters:
+				radiusLimits.min = MIN_METERS_RADIUS;
 				radiusLimits.max = MAX_METERS_RADIUS;
 				setRadiusLimits(radiusLimits);
 				break;
 			case RadiusUnits.kilometers:
+				radiusLimits.min = MIN_KM_RADIUS;
 				radiusLimits.max = MAX_KM_RADIUS;
 				setRadiusLimits(radiusLimits);
 				break;
@@ -83,7 +88,7 @@ export default function SearchRadiusPicker({
 					maximumTrackTintColor="#000000"
 					minimumValue={1}
 					maximumValue={100}
-					step={1}
+					step={0.1}
 					onValueChange={onSliderValueChange}
 				/>
 				<Text style={styles.sliderLabel}>{radiusLimits.max}</Text>
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	slider: {
-		width: "50%",
+		width: "75%",
 	},
 	sliderLabel: {
 		fontSize: 18,
