@@ -13,7 +13,7 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
-import TreasureCreateModalButton from "../../components/creator/TreasureCreateModalButton";
+import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -151,7 +151,7 @@ export default function CreatorScreen() {
 				</Text>
 			)}
 			<TreasuresListView treasures={treasuresList} />
-			<TreasureCreateModalButton />
+			<CreateTreasureButton />
 
 			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
 		</View>

@@ -1,40 +1,16 @@
-import { View, Button, Text, Modal, StyleSheet, TextInput } from "react-native";
-import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import { useState } from "react";
-import TreasureCreationMapView from "./TreasureCreationMapView";
-import TitleInput from "./TitleInput";
+import { StyleSheet, Button, Modal, View, Text } from "react-native";
+import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import SearchRadiusPicker from "./SearchRadiusPicker";
-
-export default function TreasureCreateModalButton() {
-	const [isShowTreasureModal, setIsShowTreasureModal] =
-		useState<boolean>(false);
-
-	function openCreateTreasureModal() {
-		console.log("Open treasure modal.");
-		setIsShowTreasureModal(true);
-	}
-
-	return (
-		<View>
-			<Button title="Add Treasure" onPress={openCreateTreasureModal} />
-			<CreateTreasureModal
-				isVisible={isShowTreasureModal}
-				onCancelled={() => {
-					setIsShowTreasureModal(false);
-				}}
-				onTreasureCreated={() => {}}
-			/>
-		</View>
-	);
-}
+import TitleInput from "./TitleInput";
+import TreasureCreationMapView from "./TreasureCreationMapView";
 
 type CreateTreasureModalProps = {
 	isVisible: boolean;
 	onCancelled: () => void;
 	onTreasureCreated: (treasure: Treasure) => void;
 };
-
-function CreateTreasureModal({
+export default function CreateTreasureModal({
 	isVisible,
 	onCancelled,
 	onTreasureCreated,
