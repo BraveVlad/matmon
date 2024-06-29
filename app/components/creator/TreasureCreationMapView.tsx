@@ -3,13 +3,13 @@ import {
 	MapPressEvent,
 	MapView,
 	Marker,
-	Circle,
 	MarkerDragStartEndEvent,
 	PROVIDER_GOOGLE,
 } from "../MapView/MapView";
 import { useRef } from "react";
 import { TreasureCoordinate } from "../../models/Treasure.model";
 import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-closed.png";
+import SearchRadiusCircle from "./SearchRadiusCircle";
 
 type TreasureCreationMapViewProps = {
 	onTreasureCoordinateChange: (coordinate: TreasureCoordinate) => void;
@@ -66,15 +66,7 @@ export default function TreasureCreationMapView({
 				onPress={handleMapPress}
 				zoomControlEnabled
 			>
-				<Circle
-					fillColor="#b3d0ffb0"
-					strokeColor="#93bbfa"
-					center={{
-						latitude: coordinate.latitude,
-						longitude: coordinate.longitude,
-					}}
-					radius={searchRadius}
-				/>
+				<SearchRadiusCircle center={coordinate} radius={searchRadius} />
 				<Marker
 					draggable
 					title={treasureTitle}
