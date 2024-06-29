@@ -33,6 +33,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 				apiKey: process.env.GOOGLE_MAP_API_KEY,
 			},
 		},
+		softwareKeyboardLayoutMode: "pan",
 	},
 	web: {
 		favicon: "./assets/favicon.png",

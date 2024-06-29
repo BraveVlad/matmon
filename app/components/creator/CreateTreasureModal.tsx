@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { StyleSheet, Button, Modal, View, Text } from "react-native";
+import {
+	StyleSheet,
+	Button,
+	Modal,
+	View,
+	ScrollView,
+	KeyboardAvoidingView,
+	Platform,
+} from "react-native";
+
 import {
 	Treasure,
 	TreasureCoordinate,
@@ -76,32 +85,39 @@ export default function CreateTreasureModal({
 
 	return (
 		<Modal animationType="slide" transparent={true} visible={isVisible}>
-			<View style={styles.modal}>
-				<View style={styles.contentContainer}>
-					<TreasureCreationMapView
-						otherTreasures={otherTreasures}
-						treasureTitle={treasureTitle}
-						coordinate={coordinate}
-						searchRadius={searchRadius}
-						onTreasureCoordinateChange={handleOnTreasureCoordinateChange}
-					/>
-					<TitleInput
-						title={treasureTitle}
-						placeholder="New treasure name"
-						onTitleChanged={setTreasureTitle}
-					/>
+			<KeyboardAvoidingView
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+				style={styles.modal}
+			>
+				<ScrollView contentContainerStyle={styles.scrollView}>
+					<View style={styles.contentContainer}>
+						<TreasureCreationMapView
+							otherTreasures={otherTreasures}
+							treasureTitle={treasureTitle}
+							coordinate={coordinate}
+							searchRadius={searchRadius}
+							onTreasureCoordinateChange={handleOnTreasureCoordinateChange}
+						/>
+						<TitleInput
+							title={treasureTitle}
+							placeholder="New treasure name"
+							onTitleChanged={setTreasureTitle}
+						/>
 
-					<TreasureLootPicker loot={loot} setLoot={handleOnLootChange} />
-					<SearchRadiusPicker
-						searchRadius={searchRadius}
-						onSearchRadiusChange={handeOnSearchRadiusChange}
-					/>
-				</View>
-				<View style={styles.actions}>
-					<Button title="close" onPress={handleOnClose} />
-					<Button title="create" onPress={handleOnCreate} />
-				</View>
-			</View>
+						<SearchRadiusPicker
+							searchRadius={searchRadius}
+							onSearchRadiusChange={handeOnSearchRadiusChange}
+						/>
+						<TreasureLootPicker loot={loot} setLoot={handleOnLootChange} />
+					</View>
+					<View style={styles.actionsContainer}>
+						<View style={styles.actions}>
+							<Button title="close" onPress={handleOnClose} />
+							<Button title="create" onPress={handleOnCreate} />
+						</View>
+					</View>
+				</ScrollView>
+			</KeyboardAvoidingView>
 		</Modal>
 	);
 }
@@ -112,10 +128,17 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		padding: 6,
 	},
-	titleContainer: {},
-	title: {},
+	scrollView: {
+		flexGrow: 1,
+	},
 	contentContainer: {
-		flex: 16,
+		flex: 20,
+		justifyContent: "flex-start",
+	},
+	actionsContainer: {
+		flexShrink: 0,
+		flexGrow: 0,
+
 		justifyContent: "center",
 	},
 	actions: {

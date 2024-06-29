@@ -1,7 +1,7 @@
-import Slider from "@react-native-community/slider";
 import { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import SwitchView, { SwitchOption } from "./SwitchView";
+import Slider from "@react-native-community/slider";
 
 type SearchRadiusPickerPorps = {
 	searchRadius: number;
@@ -114,8 +114,11 @@ export default function SearchRadiusPicker({
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
+		flexGrow: 0,
+		marginVertical: 6,
 		alignItems: "center",
+		justifyContent: "center",
 	},
 	searchRadiusValueLabel: {
 		fontSize: 18,
