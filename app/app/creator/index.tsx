@@ -14,6 +14,7 @@ import {
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
 import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
+import TreasureLootInput from "../../components/creator/TreasureLootPicker";
 
 const graphemeSplitter = new GraphemeSplitter();
 
@@ -111,7 +112,11 @@ export default function CreatorScreen() {
 	}
 
 	function onNewTreasure(newTreasure: Treasure): void {
+		const newTreasureId = treasuresList.length + 1;
+		newTreasure.id = `treasure#` + newTreasureId;
+
 		const newTreasuresList = [...treasuresList, newTreasure];
+
 		setTreasuresList(newTreasuresList);
 		checkTreasuresValidity(newTreasuresList);
 	}
@@ -151,8 +156,8 @@ export default function CreatorScreen() {
 				</Text>
 			)}
 			<TreasuresListView treasures={treasuresList} />
-			<CreateTreasureButton />
 
+			<CreateTreasureButton onNewTreasure={onNewTreasure} />
 			{/* <MockTreasureCreateButton onNewTreasure={onNewTreasure} /> */}
 		</View>
 	);

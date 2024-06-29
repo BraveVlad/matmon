@@ -1,7 +1,7 @@
-import Slider, { MarkerProps } from "@react-native-community/slider";
-import { useReducer, useRef, useState } from "react";
-import { StyleSheet, View, Text, Button, Pressable } from "react-native";
-import SwitchView from "./SwitchView";
+import Slider from "@react-native-community/slider";
+import { useState } from "react";
+import { StyleSheet, View, Text } from "react-native";
+import SwitchView, { SwitchOption } from "./SwitchView";
 
 type SearchRadiusPickerPorps = {
 	searchRadius: number;
@@ -54,7 +54,7 @@ export default function SearchRadiusPicker({
 		handleOnValueChange(newSliderValue);
 	}
 
-	function handleSwitchUnits(option: "left" | "right") {
+	function handleSwitchUnits(option: SwitchOption) {
 		const newUnits: RadiusUnits =
 			option === "left" ? RadiusUnits.meters : RadiusUnits.kilometers;
 
@@ -114,6 +114,7 @@ export default function SearchRadiusPicker({
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
 		alignItems: "center",
 	},
 	searchRadiusValueLabel: {

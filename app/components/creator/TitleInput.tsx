@@ -1,22 +1,34 @@
 import { useState } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import {
+	TextInput,
+	View,
+	StyleSheet,
+	StyleProp,
+	ViewStyle,
+} from "react-native";
 
 type TitleInputProps = {
+	style?: StyleProp<ViewStyle>;
+	textStyle?: StyleProp<ViewStyle>;
 	title: string;
 	placeholder: string;
+	isActive?: boolean;
 	onTitleChanged: (title: string) => void;
 };
 
 export default function TitleInput({
+	style,
+	textStyle,
 	title,
 	placeholder,
 	onTitleChanged,
+	isActive,
 }: TitleInputProps) {
 	return (
-		<View style={styles.roomTitleInputContainer}>
+		<View style={[styles.container, style]}>
 			<TextInput
-				editable
-				style={styles.roomTitleInput}
+				editable={isActive}
+				style={[styles.input, textStyle]}
 				maxLength={24}
 				value={title}
 				onChangeText={onTitleChanged}
@@ -26,19 +38,19 @@ export default function TitleInput({
 	);
 }
 const styles = StyleSheet.create({
-	roomTitleInputContainer: {
+	container: {
 		width: "100%",
-		padding: 16,
+		padding: 8,
 		justifyContent: "center",
 		alignContent: "center",
 	},
-	roomTitleInput: {
+	input: {
 		textAlign: "center",
 		textAlignVertical: "center",
 		fontSize: 28,
 		fontWeight: "bold",
 		borderRadius: 8,
 		borderWidth: 2,
-		padding: 16,
+		padding: 8,
 	},
 });

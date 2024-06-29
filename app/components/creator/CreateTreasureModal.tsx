@@ -4,6 +4,7 @@ import { Treasure, TreasureCoordinate } from "../../models/Treasure.model";
 import SearchRadiusPicker from "./SearchRadiusPicker";
 import TitleInput from "./TitleInput";
 import TreasureCreationMapView from "./TreasureCreationMapView";
+import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
 
 type CreateTreasureModalProps = {
 	isVisible: boolean;
@@ -21,8 +22,21 @@ export default function CreateTreasureModal({
 		longitude: 35.217018,
 	});
 	const [searchRadius, setSearchRadius] = useState<number>(1);
+	const [loot, setLoot] = useState<Loot>({
+		type: "physical",
+		value: "",
+	});
 
 	function handleOnClose() {
+		setCoordinate({
+			latitude: 31.771959,
+			longitude: 35.217018,
+		});
+		setTreasureTitle("");
+		setLoot({
+			type: "physical",
+			value: "",
+		});
 		onCancelled();
 	}
 
@@ -32,6 +46,22 @@ export default function CreateTreasureModal({
 
 	function handeOnSearchRadiusChange(value: number): void {
 		setSearchRadius(value);
+	}
+
+	function handleOnLootChange(loot: Loot) {
+		setLoot(loot);
+	}
+
+	function handleOnCreate() {
+		const newTreasure: Treasure = {
+			name: treasureTitle,
+			searchRadius: searchRadius,
+			coordinate: coordinate,
+			id: "",
+			isFound: false,
+		};
+
+		onTreasureCreated(newTreasure);
 	}
 
 	return (
@@ -52,31 +82,16 @@ export default function CreateTreasureModal({
 						placeholder="Enter treasure name"
 						onTitleChanged={setTreasureTitle}
 					/>
-					{/* <View>
-						<Text>Location:</Text>
-						<View>
-							<TextInput
-								editable={false}
-								value={coordinate.latitude.toString()}
-							/>
-							<TextInput
-								editable={false}
-								value={coordinate.longitude.toString()}
-							/>
-						</View>
-					</View> */}
-					<View>
-						<View>
-							<SearchRadiusPicker
-								searchRadius={searchRadius}
-								onSearchRadiusChange={handeOnSearchRadiusChange}
-							/>
-						</View>
-					</View>
+
+					<TreasureLootPicker loot={loot} setLoot={handleOnLootChange} />
+					<SearchRadiusPicker
+						searchRadius={searchRadius}
+						onSearchRadiusChange={handeOnSearchRadiusChange}
+					/>
 				</View>
 				<View style={styles.actions}>
 					<Button title="close" onPress={handleOnClose} />
-					<Button title="create" />
+					<Button title="create" onPress={handleOnCreate} />
 				</View>
 			</View>
 		</Modal>
@@ -85,20 +100,22 @@ export default function CreateTreasureModal({
 
 const styles = StyleSheet.create({
 	modal: {
-		// top: "25%",
-		// height: "75%",
 		flex: 1,
 		backgroundColor: "white",
+		padding: 6,
 	},
 	titleContainer: {},
 	title: {},
 	contentContainer: {
-		flex: 9,
+		flex: 16,
+		justifyContent: "center",
 	},
 	actions: {
 		flex: 1,
 		flexDirection: "row",
 		justifyContent: "space-around",
 	},
-	actionButton: {},
+	actionButton: {
+		textAlign: "center",
+	},
 });

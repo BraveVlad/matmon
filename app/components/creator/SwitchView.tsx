@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	StyleSheet,
 	View,
@@ -8,7 +8,7 @@ import {
 	ViewStyle,
 } from "react-native";
 
-type SwitchOption = "left" | "right";
+export type SwitchOption = "left" | "right";
 
 type SwitchViewProps = {
 	leftText: string;
@@ -30,10 +30,15 @@ export default function SwitchView({
 }: SwitchViewProps) {
 	const [activeOption, setActiveOption] = useState<SwitchOption>("left");
 
+	useEffect(() => {
+		onSwitch("left");
+	}, []);
+
 	function onSwitch(side: SwitchOption) {
 		setActiveOption(side);
 		onOptionChange(side);
 	}
+
 	return (
 		<View style={[style, styles.switch]}>
 			<SwitchButton
