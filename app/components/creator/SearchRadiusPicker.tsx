@@ -1,6 +1,7 @@
 import Slider, { MarkerProps } from "@react-native-community/slider";
 import { useReducer, useRef, useState } from "react";
 import { StyleSheet, View, Text, Button, Pressable } from "react-native";
+import SwitchView from "./SwitchView";
 
 type SearchRadiusPickerPorps = {
 	searchRadius: number;
@@ -53,7 +54,10 @@ export default function SearchRadiusPicker({
 		handleOnValueChange(newSliderValue);
 	}
 
-	function handleSwitchUnits(newUnits: RadiusUnits) {
+	function handleSwitchUnits(option: "left" | "right") {
+		const newUnits: RadiusUnits =
+			option === "left" ? RadiusUnits.meters : RadiusUnits.kilometers;
+
 		switch (newUnits) {
 			case RadiusUnits.meters:
 				radiusLimits.min = MIN_METERS_RADIUS;
@@ -98,30 +102,12 @@ export default function SearchRadiusPicker({
 				/>
 				<Text style={styles.sliderLabel}>{radiusLimits.max}</Text>
 			</View>
-			<View style={styles.switchButton}>
-				<Pressable
-					style={[
-						styles.switchOption,
-						units === RadiusUnits.meters
-							? styles.switchOptionActive
-							: undefined,
-					]}
-					onPress={() => handleSwitchUnits(RadiusUnits.meters)}
-				>
-					<Text>Meters</Text>
-				</Pressable>
-				<Pressable
-					style={[
-						styles.switchOption,
-						units === RadiusUnits.kilometers
-							? styles.switchOptionActive
-							: undefined,
-					]}
-					onPress={() => handleSwitchUnits(RadiusUnits.kilometers)}
-				>
-					<Text>Kilometers</Text>
-				</Pressable>
-			</View>
+
+			<SwitchView
+				leftText="Meters"
+				rightText="Kilometers"
+				onOptionChange={handleSwitchUnits}
+			/>
 		</View>
 	);
 }
