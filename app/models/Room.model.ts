@@ -5,7 +5,7 @@ export type Room = {
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;
-	creator: string; // TODO - Change to a User model
+	creator: string;
 };
 
 export type NewRoom = Omit<Room, "_id" | "creationDate">;
