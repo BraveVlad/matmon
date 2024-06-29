@@ -27,7 +27,7 @@ export default function CreateTreasureModal({
 		value: "",
 	});
 
-	function handleOnClose() {
+	function resetModal() {
 		setCoordinate({
 			latitude: 31.771959,
 			longitude: 35.217018,
@@ -37,6 +37,9 @@ export default function CreateTreasureModal({
 			type: "physical",
 			value: "",
 		});
+	}
+	function handleOnClose() {
+		resetModal();
 		onCancelled();
 	}
 
@@ -62,6 +65,7 @@ export default function CreateTreasureModal({
 		};
 
 		onTreasureCreated(newTreasure);
+		resetModal();
 	}
 
 	return (
