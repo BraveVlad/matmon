@@ -58,8 +58,8 @@ export const treasureSchema = new Schema(
 	},
 	{
 		_id: false,
-		timestamps: true,
+		timestamps: false,
 	}
 );
 
-export const Treasure = model<Treasure>("Treasure", treasureSchema);
+// export const Treasure = model<Treasure>("Treasure", treasureSchema);
