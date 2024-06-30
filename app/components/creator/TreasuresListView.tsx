@@ -4,14 +4,18 @@ import {
 	FlatList,
 	Text,
 	StyleSheet,
+	StyleProp,
+	ViewStyle,
 } from "react-native";
 import { Treasures, Treasure } from "../../models/Treasure.model";
 
 type TreasuresListViewProps = {
 	treasures: Treasures;
+	style?: StyleProp<ViewStyle>;
 };
 export default function TreasuresListView({
 	treasures,
+	style,
 }: TreasuresListViewProps) {
 	function renderTreasureListItem({
 		item,
@@ -30,7 +34,7 @@ export default function TreasuresListView({
 	}
 
 	return (
-		<View style={styles.treasuresList}>
+		<View style={[styles.treasuresList, style]}>
 			<Text>Treasures List View</Text>
 			<FlatList
 				data={treasures}
