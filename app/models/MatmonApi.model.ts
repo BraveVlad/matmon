@@ -12,6 +12,10 @@ export function getAllRoomsUri(username: string) {
 	return MATMON_API.base + MATMON_API.rooms + `/${username}`;
 }
 
+export function getSingleRoomUri(roomId: string) {
+	return MATMON_API.base + MATMON_API.rooms + `/single/${roomId}`;
+}
+
 export function postCreateRoomUri() {
 	return MATMON_API.base + MATMON_API.rooms + "/create";
 }
