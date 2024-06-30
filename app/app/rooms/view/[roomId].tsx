@@ -7,6 +7,9 @@ import {
 	getSingleRoomUri,
 } from "../../../models/MatmonApi.model";
 import axios, { AxiosError } from "axios";
+import TreasureMarker from "../../../components/creator/TreasureMarker";
+import TreasuresMapView from "../../../components/creator/TreasuresMapView";
+import TreasuresListView from "../../../components/creator/TreasuresListView";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -23,7 +26,10 @@ async function fetchRoom(roomId: string) {
 			throw new Error(response.message);
 		}
 
-		const room = response.data;
+		const room: Room = {
+			...response.data,
+			creationDate: new Date(response.data.creationDate),
+		};
 		return room;
 	} catch (error) {
 		const axiosError = error as AxiosError;
@@ -47,15 +53,38 @@ export default function RoomViewScreen() {
 		},
 	});
 
+	function onEdit() {}
+
+	function onPrint() {}
+
+	function onStart() {}
+
+	function onShare() {}
+
 	// show room title, map retrieved treasures.
 
 	// set buttons to act upon: delete, print treasure qr, start, share modal
 	return (
 		<View style={styles.container}>
-			<Text>Welcome to Room View Screen!</Text>
+			<View style={styles.actionBar}>
+				<Button onPress={onEdit} title="Edit" />
+				<Button onPress={onPrint} title="Print QR" />
+				<Button onPress={onStart} title="Start" />
+				<Button onPress={onShare} title="Share" />
+			</View>
 			{isLoading && <Text>loading room...</Text>}
 			{isError && <Text>Error: {error.toString()}</Text>}
-			{isSuccess && <Text>Room: {data.title}</Text>}
+			{isSuccess && (
+				<View>
+					<Text style={styles.title}>{data.title}</Text>
+					<Text>Created at: {data.creationDate.toLocaleDateString()}</Text>
+				</View>
+			)}
+			<TreasuresMapView treasures={data ? data.treasures : []} />
+			<TreasuresListView
+				style={styles.treasures}
+				treasures={data ? data.treasures : []}
+			/>
 		</View>
 	);
 }
@@ -65,6 +94,22 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "flex-start",
+	},
+	actionBar: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+		gap: 16,
+		marginVertical: 16,
+	},
+	actionButton: {
+		flex: 1,
+	},
+	title: {
+		fontSize: 32,
+		fontWeight: "bold",
+	},
+	treasures: {
+		padding: 8,
 	},
 });
