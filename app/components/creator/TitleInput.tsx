@@ -28,18 +28,12 @@ export function checkTextValidity(
 	const titleLengthIncludingEmojis = graphemeSplitter.countGraphemes(title);
 
 	if (titleLengthIncludingEmojis < minLength) {
-		// setTitleError("Room title can't be less than 5 characters.");
-		onValidationFailed?.(
-			`Room title can't be less than ${minLength} characters.`
-		);
+		onValidationFailed?.(`can't be less than ${minLength} characters.`);
 		return false;
 	}
 
 	if (titleLengthIncludingEmojis > maxLength) {
-		// setTitleError("Room title can't be less than 5 characters.");
-		onValidationFailed?.(
-			`Room title can't be more than ${maxLength} characters.`
-		);
+		onValidationFailed?.(`can't be more than ${maxLength} characters.`);
 		return false;
 	}
 
@@ -48,7 +42,7 @@ export function checkTextValidity(
 
 	if (specialCharactersTestResult) {
 		// setTitleError("Room title contains invalid characters.");
-		onValidationFailed?.("Room title contains invalid characters.");
+		onValidationFailed?.("contains invalid characters.");
 		return false;
 	}
 

@@ -3,6 +3,7 @@ import {
 	StyleSheet,
 	Button,
 	Modal,
+	Text,
 	View,
 	ScrollView,
 	KeyboardAvoidingView,
@@ -15,7 +16,7 @@ import {
 	Treasures,
 } from "../../models/Treasure.model";
 import SearchRadiusPicker from "./SearchRadiusPicker";
-import TitleInput from "./TitleInput";
+import TitleInput, { checkTextValidity } from "./TitleInput";
 import TreasureCreationMapView from "./TreasureCreationMapView";
 import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
 
@@ -32,6 +33,8 @@ export default function CreateTreasureModal({
 	onTreasureCreated,
 }: CreateTreasureModalProps) {
 	const [treasureTitle, setTreasureTitle] = useState<string>("");
+	const [titleError, setTitleError] = useState<string>("");
+
 	const [coordinate, setCoordinate] = useState<TreasureCoordinate>({
 		latitude: 31.771959,
 		longitude: 35.217018,
@@ -70,7 +73,24 @@ export default function CreateTreasureModal({
 		setLoot(loot);
 	}
 
+	function checkTitleValidity(title: string) {
+		setTitleError("");
+		return checkTextValidity(title, 1, 25, (error) => {
+			setTitleError(error);
+		});
+	}
+	function handleOnTitleChange(title: string) {
+		setTreasureTitle(title);
+		checkTitleValidity(title);
+	}
+
 	function handleOnCreate() {
+		const isValidTitle = checkTitleValidity(treasureTitle);
+		console.log(`valid title: `, isValidTitle);
+		if (!isValidTitle) {
+			return;
+		}
+
 		const newTreasure: Treasure = {
 			name: treasureTitle,
 			searchRadius: searchRadius,
@@ -101,9 +121,11 @@ export default function CreateTreasureModal({
 						<TitleInput
 							title={treasureTitle}
 							placeholder="New treasure name"
-							onTitleChanged={setTreasureTitle}
+							onTitleChanged={handleOnTitleChange}
 						/>
-
+						{titleError && (
+							<Text style={styles.errorMessage}>⚠️ {titleError}</Text>
+						)}
 						<SearchRadiusPicker
 							searchRadius={searchRadius}
 							onSearchRadiusChange={handeOnSearchRadiusChange}
@@ -148,5 +170,9 @@ const styles = StyleSheet.create({
 	},
 	actionButton: {
 		textAlign: "center",
+	},
+	errorMessage: {
+		color: "red",
+		fontWeight: "bold",
 	},
 });

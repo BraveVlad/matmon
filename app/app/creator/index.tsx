@@ -65,23 +65,22 @@ export default function CreatorScreen() {
 	});
 
 	function checkTreasuresValidity(treasures: Treasures) {
+		setTreasuresError("");
 		if (treasures.length === 0) {
 			setTreasuresError("Room must contain at least one treasure.");
 			return false;
 		}
-		setTreasuresError("");
 		return true;
 	}
 
 	function checkTitleValidity(title: string) {
+		setTitleError("");
 		return checkTextValidity(title, 5, 25, (error) => {
 			setTitleError(error);
 		});
 	}
 	function onSaveRoom() {
 		setIsShowErrors(true);
-		setTreasuresError("");
-		setTitleError("");
 
 		const isValidTreasure = checkTreasuresValidity(treasuresList);
 		const isValidTitle = checkTitleValidity(roomTitle);
@@ -139,18 +138,12 @@ export default function CreatorScreen() {
 						placeholder="Enter room title"
 						onTitleChanged={handleTitleChange}
 					/>
-					{isShowErrors && (
-						<Text style={styles.errorMessage}>
-							{titleError ? "⚠️" : ""}
-							{titleError}
-						</Text>
+					{isShowErrors && titleError && (
+						<Text style={styles.errorMessage}>⚠️ {titleError}</Text>
 					)}
 					<TreasuresMapView treasures={treasuresList} />
-					{isShowErrors && (
-						<Text style={styles.errorMessage}>
-							{treasuresError ? "⚠️" : ""}
-							{treasuresError}
-						</Text>
+					{isShowErrors && treasuresError && (
+						<Text style={styles.errorMessage}>⚠️ {treasuresError}</Text>
 					)}
 					<TreasuresListView treasures={treasuresList} />
 
