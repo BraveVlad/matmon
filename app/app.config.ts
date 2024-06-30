@@ -12,7 +12,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	orientation: "portrait",
 	icon: "./assets/icon.png",
 	userInterfaceStyle: "light",
-	scheme: "com.matmon.app",
+	scheme: "matmon",
 	owner: "matmon",
 	splash: {
 		image: "./assets/splash.png",
