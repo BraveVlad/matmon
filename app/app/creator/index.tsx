@@ -9,21 +9,20 @@ import {
 } from "react-native";
 import TreasuresListView from "../../components/creator/TreasuresListView";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
-import TitleInput from "../../components/creator/TitleInput";
+import TitleInput, {
+	checkTextValidity,
+} from "../../components/creator/TitleInput";
 import { Treasure, Treasures } from "../../models/Treasure.model";
 import { useState } from "react";
 import { router } from "expo-router";
-import GraphemeSplitter from "grapheme-splitter";
 import { useMutation } from "@tanstack/react-query";
-import { NewRoom, Room } from "../../models/Room.model";
 import axios, { AxiosError } from "axios";
 import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
 import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
-
-const graphemeSplitter = new GraphemeSplitter();
+import { NewRoom, Room } from "../../models/Room.model";
 
 async function createNewRoom(room: NewRoom) {
 	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
@@ -65,28 +64,6 @@ export default function CreatorScreen() {
 		},
 	});
 
-	function checkTitleValidity(title: string) {
-		const trimmedTitle = title.trim();
-		const titleLengthIncludingEmojis = graphemeSplitter.countGraphemes(title);
-
-		if (titleLengthIncludingEmojis < 5) {
-			setTitleError("Room title can't be less than 5 characters.");
-			return false;
-		}
-
-		const specialCharactersRegex = /[@$%^*,."`:;{}<>\/\\]/;
-		const specialCharactersTestResult =
-			specialCharactersRegex.test(trimmedTitle);
-
-		if (specialCharactersTestResult) {
-			setTitleError("Room title contains invalid characters.");
-			return false;
-		}
-
-		setTitleError("");
-		return true;
-	}
-
 	function checkTreasuresValidity(treasures: Treasures) {
 		if (treasures.length === 0) {
 			setTreasuresError("Room must contain at least one treasure.");
@@ -96,8 +73,16 @@ export default function CreatorScreen() {
 		return true;
 	}
 
+	function checkTitleValidity(title: string) {
+		return checkTextValidity(title, 5, 25, (error) => {
+			setTitleError(error);
+		});
+	}
 	function onSaveRoom() {
 		setIsShowErrors(true);
+		setTreasuresError("");
+		setTitleError("");
+
 		const isValidTreasure = checkTreasuresValidity(treasuresList);
 		const isValidTitle = checkTitleValidity(roomTitle);
 

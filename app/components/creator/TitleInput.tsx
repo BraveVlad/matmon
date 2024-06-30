@@ -1,4 +1,4 @@
-import { useState } from "react";
+import GraphemeSplitter from "grapheme-splitter";
 import {
 	TextInput,
 	View,
@@ -15,6 +15,46 @@ type TitleInputProps = {
 	isActive?: boolean;
 	onTitleChanged: (title: string) => void;
 };
+
+const graphemeSplitter = new GraphemeSplitter();
+
+export function checkTextValidity(
+	title: string,
+	minLength: number,
+	maxLength: number,
+	onValidationFailed?: (error: string) => void
+) {
+	const trimmedTitle = title.trim();
+	const titleLengthIncludingEmojis = graphemeSplitter.countGraphemes(title);
+
+	if (titleLengthIncludingEmojis < minLength) {
+		// setTitleError("Room title can't be less than 5 characters.");
+		onValidationFailed?.(
+			`Room title can't be less than ${minLength} characters.`
+		);
+		return false;
+	}
+
+	if (titleLengthIncludingEmojis > maxLength) {
+		// setTitleError("Room title can't be less than 5 characters.");
+		onValidationFailed?.(
+			`Room title can't be more than ${maxLength} characters.`
+		);
+		return false;
+	}
+
+	const specialCharactersRegex = /[@$%^*,."`:;{}<>\/\\]/;
+	const specialCharactersTestResult = specialCharactersRegex.test(trimmedTitle);
+
+	if (specialCharactersTestResult) {
+		// setTitleError("Room title contains invalid characters.");
+		onValidationFailed?.("Room title contains invalid characters.");
+		return false;
+	}
+
+	// onValidationFailed("");
+	return true;
+}
 
 export default function TitleInput({
 	style,
