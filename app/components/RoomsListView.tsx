@@ -75,7 +75,7 @@ export default function RoomsListView() {
 			style={styles.roomsList}
 			data={data}
 			renderItem={RenderRoomsListItem}
-			keyExtractor={(room) => room._id}
+			keyExtractor={(room) => room.id}
 		/>
 	);
 }

@@ -2,6 +2,7 @@ import { Schema, Types, model } from "mongoose";
 import { Treasures, treasureSchema } from "./Treasure.model";
 
 export interface Room {
+	id: string;
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;

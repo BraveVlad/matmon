@@ -8,11 +8,15 @@ type RoomsListViewItemProps = {
 
 export default function RoomsListViewItem({ room }: RoomsListViewItemProps) {
 	function onOpenRoomScreen() {
-		router.push(`/rooms/view/${room._id}`);
+		router.push(`/rooms/view/${room.id}`);
 	}
 
 	return (
-		<Pressable style={styles.roomsListItem} onPress={onOpenRoomScreen}>
+		<Pressable
+			key={room.id}
+			style={styles.roomsListItem}
+			onPress={onOpenRoomScreen}
+		>
 			<Text>{room.title}</Text>
 			<Text>created: {room.creationDate.toLocaleDateString()}</Text>
 		</Pressable>

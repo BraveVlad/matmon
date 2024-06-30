@@ -29,7 +29,17 @@ router.get("/:user", async (request, response) => {
 			return;
 		}
 
-		apiResponse.data = rooms;
+		const clientRooms = rooms.map((room) => {
+			return {
+				id: room._id.toString(),
+				title: room.title,
+				creationDate: room.creationDate,
+				treasures: room.treasures,
+				creator: room.creator,
+			} as Room;
+		});
+
+		apiResponse.data = clientRooms;
 
 		response.status(200);
 		response.json(apiResponse);
@@ -125,7 +135,15 @@ router.get("/single/:roomId", async (request, response) => {
 			return;
 		}
 
-		apiResponse.data = room;
+		const clientRoom: Room = {
+			id: room._id.toString(),
+			title: room.title,
+			creationDate: room.creationDate,
+			treasures: room.treasures,
+			creator: room.creator,
+		};
+
+		apiResponse.data = clientRoom;
 
 		response.status(200);
 		response.json(apiResponse);
