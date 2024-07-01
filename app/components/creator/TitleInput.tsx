@@ -81,12 +81,13 @@ const styles = StyleSheet.create({
 		alignContent: "center",
 	},
 	input: {
+		backgroundColor: "white",
 		textAlign: "center",
 		textAlignVertical: "center",
 		fontSize: 28,
 		fontWeight: "bold",
 		borderRadius: 8,
-		borderWidth: 2,
+		// borderWidth: 2,
 		padding: 8,
 	},
 });

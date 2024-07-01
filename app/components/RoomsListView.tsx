@@ -82,6 +82,8 @@ export default function RoomsListView() {
 
 const styles = StyleSheet.create({
 	roomsList: {
+		padding: 6,
+		alignSelf: "center",
 		width: "75%",
 		gap: 16,
 	},

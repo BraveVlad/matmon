@@ -17,8 +17,8 @@ export default function RoomsListViewItem({ room }: RoomsListViewItemProps) {
 			style={styles.roomsListItem}
 			onPress={onOpenRoomScreen}
 		>
-			<Text>{room.title}</Text>
-			<Text>created: {room.creationDate.toLocaleDateString()}</Text>
+			<Text style={styles.title}>{room.title}</Text>
+			{/* <Text>created: {room.creationDate.toLocaleDateString()}</Text> */}
 		</Pressable>
 	);
 }
@@ -26,6 +26,18 @@ export default function RoomsListViewItem({ room }: RoomsListViewItemProps) {
 const styles = StyleSheet.create({
 	roomsListItem: {
 		flexDirection: "row",
-		justifyContent: "space-between",
+		justifyContent: "center",
+		backgroundColor: "#0693e3",
+		width: "100%",
+		padding: 16,
+		// flex: 1,
+		borderRadius: 8,
+	},
+	title: {
+		fontWeight: "bold",
+		fontSize: 21,
+		textAlign: "center",
+		color: "white",
+		// backgroundColor: "green",
 	},
 });

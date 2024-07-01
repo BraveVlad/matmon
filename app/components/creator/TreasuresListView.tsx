@@ -8,6 +8,7 @@ import {
 	ViewStyle,
 } from "react-native";
 import { Treasures, Treasure } from "../../models/Treasure.model";
+import { isYieldExpression } from "typescript";
 
 type TreasuresListViewProps = {
 	treasures: Treasures;
@@ -22,12 +23,9 @@ export default function TreasuresListView({
 		index,
 	}: ListRenderItemInfo<Treasure>) {
 		return (
-			<View>
-				<Text>
-					{index + 1} ) Treasure #{item.id} - {item.name} - Coords:
-					{`${item.coordinate.latitude.toFixed(
-						3
-					)},${item.coordinate.longitude.toFixed(3)}`}
+			<View style={styles.listItem}>
+				<Text style={styles.title}>
+					{item.id} - {item.name}
 				</Text>
 			</View>
 		);
@@ -35,7 +33,7 @@ export default function TreasuresListView({
 
 	return (
 		<View style={[styles.treasuresList, style]}>
-			<Text>Treasures List View</Text>
+			<Text style={styles.title}>Treasures:</Text>
 			<FlatList
 				data={treasures}
 				keyExtractor={(treasure) => treasure.id}
@@ -46,7 +44,49 @@ export default function TreasuresListView({
 }
 
 const styles = StyleSheet.create({
+	// treasuresList: {
+	// 	flex: 1,
+	// },
+	// treasuresList: {
+	// 	flex: 1,
+	// 	width: "100%",
+	// 	// backgroundColor: "red",
+	// },
 	treasuresList: {
 		flex: 1,
+		padding: 6,
+		alignSelf: "center",
+		width: "75%",
+		gap: 16,
+	},
+	shareButton: {
+		// alignSelf: "flex-end",
+		backgroundColor: "#0693e3",
+		// margin: 32,
+	},
+	shareButtonText: {
+		fontSize: 21,
+		// margin: 16,
+		color: "white",
+		fontWeight: "bold",
+	},
+	listItem: {
+		flexDirection: "row",
+		justifyContent: "center",
+		backgroundColor: "#0693e3",
+		width: "100%",
+		padding: 16,
+		// gap: 16,
+		marginVertical: 4,
+
+		// flex: 1,
+		borderRadius: 8,
+	},
+	title: {
+		fontWeight: "bold",
+		fontSize: 16,
+		textAlign: "center",
+		color: "white",
+		// backgroundColor: "green",
 	},
 });

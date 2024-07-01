@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
 	},
 
 	label: {
+		color: "white",
 		flexShrink: 0,
 		fontWeight: "bold",
 		fontSize: 18,

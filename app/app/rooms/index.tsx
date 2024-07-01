@@ -9,7 +9,6 @@ export default function RoomsScreen() {
 
 	return (
 		<View style={styles.container}>
-			<Text>Welcome to My Rooms!</Text>
 			<View style={styles.list}>
 				<RoomsListView />
 			</View>
@@ -24,12 +23,17 @@ export default function RoomsScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		// backgroundColor: "#fff",
+		backgroundColor: "#46178F",
+
 		alignItems: "center",
 		justifyContent: "center",
+		padding: 16,
 	},
 	list: {
 		flex: 1,
+		width: "100%",
+		// backgroundColor: "red",
 	},
 	shareButton: {
 		// alignSelf: "flex-end",
