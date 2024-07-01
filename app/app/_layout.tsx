@@ -14,7 +14,7 @@ export default function RootLayout() {
 		<QueryClientProvider client={queryClient}>
 			<TopBar />
 			<Slot />
-			{Platform.OS === "web" && <ReactQueryDevtools initialIsOpen={false} />}
+			{/* {Platform.OS === "web" && <ReactQueryDevtools initialIsOpen={false} />} */}
 		</QueryClientProvider>
 	);
 }
@@ -25,7 +25,10 @@ function TopBar() {
 	console.log(currentPath);
 
 	function handleBackButton() {
-		router.back();
+		if (router.canGoBack()) {
+			router.back();
+		}
+		router.replace("/");
 	}
 
 	return (

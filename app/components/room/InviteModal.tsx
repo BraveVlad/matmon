@@ -5,7 +5,7 @@ import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-open.
 
 type PrintQrModalProps = {
 	isVisible: boolean;
-	roomId: string;
+	roomId?: string;
 	roomTitle?: string;
 	onClose: () => void;
 };
@@ -53,7 +53,8 @@ export default function InviteModal({
 
 			<View style={styles.content}>
 				<Text style={styles.title}>Invite players to join</Text>
-				<Text style={[styles.title, styles.name]}>{roomTitle}</Text>
+				<Text style={[styles.title]}>GAME PIN:</Text>
+				<Text style={[styles.title, styles.name]}>{roomId}</Text>
 				<View style={styles.barcode}>
 					<QRCode
 						size={200}

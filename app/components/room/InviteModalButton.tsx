@@ -3,7 +3,7 @@ import { View, Button } from "react-native";
 import InviteModal from "./InviteModal";
 
 type InviteModalButton = {
-	roomId: string;
+	roomId?: string;
 	roomTitle?: string;
 };
 

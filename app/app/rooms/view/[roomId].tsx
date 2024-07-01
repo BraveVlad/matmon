@@ -86,7 +86,7 @@ export default function RoomViewScreen() {
 	});
 
 	function onJoin() {
-		router.navigate(`/game/${roomId}`);
+		router.navigate(`/game/${data?.shareId}`);
 	}
 
 	function isActionBarActive() {
@@ -112,7 +112,7 @@ export default function RoomViewScreen() {
 					treasures={data?.treasures}
 				/>
 				<Button onPress={onJoin} title="Play" />
-				<InviteModalButton roomId={roomId} roomTitle={data?.title} />
+				<InviteModalButton roomId={data?.shareId} roomTitle={data?.title} />
 			</View>
 			{isLoading && <Text>loading room...</Text>}
 			{isError && <Text>Error: {error.toString()}</Text>}

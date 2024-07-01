@@ -52,6 +52,7 @@ export default function JoinGameScreen() {
 
 	function onGamePinChanged(title: string) {
 		setGamePin(title);
+		setJoinError("");
 	}
 
 	function onJoin() {
@@ -75,10 +76,10 @@ export default function JoinGameScreen() {
 				placeholder={"GAME PIN"}
 				onTitleChanged={onGamePinChanged}
 			/>
-
 			<Pressable onPress={onJoin} style={[styles.joinView, styles.joinButton]}>
 				<Text style={[styles.joinView, styles.joinButtonText]}>JOIN</Text>
 			</Pressable>
+			{joinError !== "" && <Text style={styles.errorMessage}>{joinError}</Text>}
 		</View>
 	);
 }
@@ -106,5 +107,9 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		// borderWidth: 2,
 		padding: 8,
+	},
+	errorMessage: {
+		color: "red",
+		fontWeight: "bold",
 	},
 });
