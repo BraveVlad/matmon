@@ -6,7 +6,7 @@ export default function PublicJoinScreen() {
 	const { roomId } = useLocalSearchParams<{ roomId: string }>();
 
 	function openApp() {
-		window.location.href = `com.matmon.app://rooms/view/${roomId}`;
+		window.location.href = `matmon://rooms/view/${roomId}`;
 	}
 	function openStore() {
 		window.location.href = `https://play.google.com/store/apps/details?id=com.matmon.app`;
