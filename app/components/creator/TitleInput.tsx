@@ -13,6 +13,7 @@ type TitleInputProps = {
 	title: string;
 	placeholder: string;
 	isActive?: boolean;
+	maxLength?: number;
 	onTitleChanged: (title: string) => void;
 };
 
@@ -57,13 +58,14 @@ export default function TitleInput({
 	placeholder,
 	onTitleChanged,
 	isActive,
+	maxLength,
 }: TitleInputProps) {
 	return (
 		<View style={[styles.container, style]}>
 			<TextInput
 				editable={isActive}
 				style={[styles.input, textStyle]}
-				maxLength={24}
+				maxLength={maxLength ? maxLength : 24}
 				value={title}
 				onChangeText={onTitleChanged}
 				placeholder={placeholder}

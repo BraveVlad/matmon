@@ -3,6 +3,7 @@ import { Treasures, treasureSchema } from "./Treasure.model";
 
 export interface Room {
 	id: string;
+	shareId: string;
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;
@@ -12,6 +13,10 @@ export type NewRoom = Omit<Room, "creationDate">;
 export type Rooms = Room[];
 
 const roomSchema = new Schema<Room>({
+	shareId: {
+		type: String,
+		requied: true,
+	},
 	title: {
 		type: String,
 		requied: true,
