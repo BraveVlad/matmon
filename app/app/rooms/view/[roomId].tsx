@@ -9,7 +9,6 @@ import {
 import axios, { AxiosError } from "axios";
 import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
-import { Share } from "react-native";
 import PrintQrModalButton from "../../../components/room/PrintBarcodeModalButton";
 import InviteModalButton from "../../../components/room/InviteModalButton";
 
@@ -57,20 +56,6 @@ export default function RoomViewScreen() {
 
 	function onStart() {}
 
-	async function ShareLink(title: string, content: string) {
-		try {
-			await Share.share(
-				{
-					message: `${title}\n${content}`,
-				},
-				{
-					dialogTitle: "Matmon - מטמון",
-				}
-			);
-		} catch (error) {
-			console.error(`Unable to share.`, error);
-		}
-	}
 	function isActionBarActive() {
 		return data ? "auto" : "none";
 	}

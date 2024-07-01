@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
 	qrTitle: { marginVertical: 4 },
 	qrId: {
 		fontSize: 16,
+		fontWeight: "bold",
 		textAlign: "center",
 	},
 	qrName: {
-		fontWeight: "bold",
 		fontSize: 8,
 		textAlign: "center",
 	},
