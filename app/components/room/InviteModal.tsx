@@ -32,7 +32,7 @@ export default function InviteModal({
 	}
 
 	function formtPublicInviteLink() {
-		return `https://matmon.onrender.com/public/join/${roomId}`;
+		return `https://matmon.netlify.app/web/join/${roomId}`;
 	}
 
 	function onShare() {
