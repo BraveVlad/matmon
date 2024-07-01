@@ -5,7 +5,7 @@ node_modules/
 
 # Expo
 .expo/
-# dist/
+dist/
 web-build/
 android/
 %ProgramData%
@@ -38,3 +38,6 @@ yarn-error.*
 
 # .env
 .env
+
+# Local Netlify folder
+.netlify
