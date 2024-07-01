@@ -33,6 +33,7 @@ router.get("/:user", async (request, response) => {
 		const clientRooms = rooms.map((room) => {
 			return {
 				id: room._id.toString(),
+				shareId: room.shareId,
 				title: room.title,
 				creationDate: room.creationDate,
 				treasures: room.treasures,
