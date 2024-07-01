@@ -1,13 +1,13 @@
 import { Treasures } from "./Treasure.model";
 
 export type Room = {
-	_id: string;
+	id: string;
 	title: string;
 	creationDate: Date;
 	treasures: Treasures;
 	creator: string;
 };
 
-export type NewRoom = Omit<Room, "_id" | "creationDate">;
+export type NewRoom = Omit<Room, "id" | "creationDate">;
 
 export type Rooms = Room[];
