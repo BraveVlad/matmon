@@ -147,7 +147,9 @@ export default function CreateTreasureModal({
 const styles = StyleSheet.create({
 	modal: {
 		flex: 1,
-		backgroundColor: "white",
+		// backgroundColor: "white",
+		backgroundColor: "#46178f",
+
 		padding: 6,
 	},
 	scrollView: {

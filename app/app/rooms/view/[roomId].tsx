@@ -134,7 +134,9 @@ export default function RoomViewScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		// backgroundColor: "#fff",
+		backgroundColor: "#46178F",
+
 		alignItems: "center",
 		justifyContent: "flex-start",
 	},
@@ -148,6 +150,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	title: {
+		color: "white",
 		fontSize: 32,
 		fontWeight: "bold",
 	},

@@ -166,11 +166,13 @@ export default function CreatorScreen() {
 
 const styles = StyleSheet.create({
 	container: {
+		// width: "75%",
 		padding: "2%",
 		flex: 1,
-		backgroundColor: "#fff",
+		// backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+		backgroundColor: "#46178F",
 	},
 	scrollView: {
 		flex: 1,

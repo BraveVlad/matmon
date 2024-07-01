@@ -8,7 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	...config,
 	name: "matmon",
 	slug: "matmon",
-	version: "1.0.0",
+	version: "2.0.0",
 	orientation: "portrait",
 	icon: "./assets/icon.png",
 	userInterfaceStyle: "light",
@@ -34,6 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 			},
 		},
 		softwareKeyboardLayoutMode: "pan",
+		versionCode: 2,
 	},
 	web: {
 		favicon: "./assets/favicon.png",

@@ -87,12 +87,13 @@ export default function JoinGameScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "#46178f",
 		alignItems: "center",
 		justifyContent: "center",
-		gap: 2,
+		gap: 6,
 	},
-	joinView: { width: "50%", padding: 0 },
+
+	joinView: { width: "75%", padding: 0 },
 	gamepin: {},
 	joinButton: {
 		alignSelf: "center",
