@@ -23,6 +23,7 @@ import {
 } from "../../models/MatmonApi.model";
 import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
 import { NewRoom, Room } from "../../models/Room.model";
+import useUserLocation from "../../models/useUserLocation";
 
 async function createNewRoom(room: NewRoom) {
 	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
@@ -33,6 +34,7 @@ async function createNewRoom(room: NewRoom) {
 }
 
 export default function CreatorScreen() {
+	const { userLocation } = useUserLocation();
 	const [treasuresList, setTreasuresList] = useState<Treasures>([]);
 	const [roomTitle, setRoomTitle] = useState<string>("");
 
@@ -94,6 +96,7 @@ export default function CreatorScreen() {
 			treasures: treasuresList,
 			title: roomTitle,
 			creator: "vlad",
+			shareId: "",
 		};
 		createRoomMutation.mutate(newRoom);
 	}
@@ -141,7 +144,11 @@ export default function CreatorScreen() {
 					{isShowErrors && titleError && (
 						<Text style={styles.errorMessage}>⚠️ {titleError}</Text>
 					)}
-					<TreasuresMapView treasures={treasuresList} />
+					<TreasuresMapView
+						focusLocation={userLocation}
+						showUserLocation={true}
+						treasures={treasuresList}
+					/>
 					{isShowErrors && treasuresError && (
 						<Text style={styles.errorMessage}>⚠️ {treasuresError}</Text>
 					)}
