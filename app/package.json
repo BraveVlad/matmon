@@ -12,7 +12,7 @@
 		"predeploy": "expo export -p web",
 		"web-build": "expo export -p web && expo start --web",
 		"start:web": "expo start --web",
-		"build:web": "expo build:web"
+		"build:web": "npx expo export:web"
 	},
 	"dependencies": {
 		"@dev-plugins/react-query": "^0.0.6",
