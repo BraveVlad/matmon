@@ -1,4 +1,5 @@
 import { Button, StyleSheet, Text, View } from "react-native";
+import { styles } from "../styles/styles";
 
 export default function GameScreen() {
 	return (
@@ -8,11 +9,4 @@ export default function GameScreen() {
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
+

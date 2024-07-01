@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import RoomsListView from "../../components/RoomsListView";
 import { router } from "expo-router";
+import { styles } from "../styles/styles";
 
 export default function RoomsScreen() {
 	function onCreateNewRoom() {
@@ -18,11 +19,4 @@ export default function RoomsScreen() {
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
+

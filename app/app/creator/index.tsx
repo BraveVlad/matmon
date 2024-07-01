@@ -23,6 +23,7 @@ import {
 } from "../../models/MatmonApi.model";
 import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
 import { NewRoom, Room } from "../../models/Room.model";
+import { styles } from "../styles/styles";
 
 async function createNewRoom(room: NewRoom) {
 	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
@@ -156,26 +157,3 @@ export default function CreatorScreen() {
 		</KeyboardAvoidingView>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		padding: "2%",
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	scrollView: {
-		flex: 1,
-	},
-	actionsBar: {
-		width: "100%",
-		flexDirection: "row",
-		justifyContent: "flex-end",
-		gap: 16,
-	},
-	errorMessage: {
-		color: "red",
-		fontWeight: "bold",
-	},
-});
