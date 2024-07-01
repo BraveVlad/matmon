@@ -86,7 +86,7 @@ export default function RoomViewScreen() {
 	});
 
 	function onJoin() {
-		router.navigate(`/game/join/${roomId}`);
+		router.navigate(`/game/${roomId}`);
 	}
 
 	function isActionBarActive() {

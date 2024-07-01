@@ -32,7 +32,7 @@ export default function InviteModal({
 	}
 
 	function formtPublicInviteLink() {
-		return `https://bravevlad.github.io/public/join/${roomId}`;
+		return `https://bravevlad.github.io/matmon/game/public/join/${roomId}`;
 	}
 
 	function onShare() {
