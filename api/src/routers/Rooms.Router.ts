@@ -153,3 +153,50 @@ router.get("/single/:roomId", async (request, response) => {
 		response.json(apiResponse);
 	}
 });
+
+router.post("/delete", async (request, response) => {
+	const { roomId } = request.body;
+
+	console.log(`Room: requested to delete room from ip: ${request.ip}`);
+
+	const apiResponse: RoomsApiResponse<string> = {
+		message: "OK",
+		data: "",
+	};
+
+	if (!roomId) {
+		apiResponse.message = "INVALID_PARAMS";
+
+		console.error(
+			`Rooms: room deletion request failed with error: ${apiResponse.message}`
+		);
+
+		response.status(400);
+		return response.json(apiResponse);
+	}
+
+	try {
+		console.log(`Deleteing room ${roomId} from db`);
+		const deletedRoom = await Room.findByIdAndDelete({ _id: roomId });
+
+		if (!deletedRoom) {
+			apiResponse.message = "Couldn't find target room .";
+			response.status(404);
+			response.json(apiResponse);
+			return;
+		}
+
+		console.log(`Rooms: deleted room ${deletedRoom._id}`);
+
+		apiResponse.message = "OK";
+		apiResponse.data = roomId;
+
+		response.status(200);
+		return response.json(apiResponse);
+	} catch (error) {
+		console.error(error);
+		apiResponse.message = "Couldn't delete room.";
+		response.status(500);
+		return response.json(apiResponse);
+	}
+});

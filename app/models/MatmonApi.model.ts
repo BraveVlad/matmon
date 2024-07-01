@@ -4,7 +4,7 @@ export type RoomsApiResponse<T> = {
 };
 
 export const MATMON_API = {
-	base: "http://192.168.1.43:3000",
+	base: "https://matmon-server.onrender.com",
 	rooms: "/rooms",
 };
 
@@ -18,4 +18,8 @@ export function getSingleRoomUri(roomId: string) {
 
 export function postCreateRoomUri() {
 	return MATMON_API.base + MATMON_API.rooms + "/create";
+}
+
+export function deleteRoomUri() {
+	return MATMON_API.base + MATMON_API.rooms + "/delete";
 }
