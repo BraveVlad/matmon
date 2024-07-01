@@ -39,9 +39,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 		favicon: "./assets/favicon.png",
 		bundler: "metro",
 	},
-	experiments: {
-		baseUrl: "/matmon",
-	},
+
 	plugins: ["expo-router"],
 	extra: {
 		router: {
