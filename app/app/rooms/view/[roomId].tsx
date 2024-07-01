@@ -7,9 +7,10 @@ import {
 	getSingleRoomUri,
 } from "../../../models/MatmonApi.model";
 import axios, { AxiosError } from "axios";
-import TreasureMarker from "../../../components/creator/TreasureMarker";
 import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
+import { Share } from "react-native";
+import PrintQrModalButton from "../../../components/room/PrintQrModalButton";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -40,11 +41,9 @@ async function fetchRoom(roomId: string) {
 }
 
 export default function RoomViewScreen() {
-	// Get room id from search params
 	const { roomId } = useLocalSearchParams<{ roomId: string }>();
 	if (!roomId) return <Redirect href={"/rooms/"} />;
 
-	// get room data via query
 	const { data, isSuccess, isLoading, isError, error } = useQuery({
 		queryKey: ["room", roomId],
 		queryFn: ({ queryKey }) => {
@@ -55,20 +54,40 @@ export default function RoomViewScreen() {
 
 	function onEdit() {}
 
-	function onPrint() {}
-
 	function onStart() {}
 
-	function onShare() {}
+	async function ShareLink(title: string, content: string) {
+		try {
+			await Share.share(
+				{
+					message: `${title}\n${content}`,
+				},
+				{
+					dialogTitle: "Matmon - מטמון",
+				}
+			);
+		} catch (error) {
+			console.error(`Unable to share.`, error);
+		}
+	}
+	function onShare() {
+		ShareLink(
+			"Join my room on Matmon! ",
+			`http://192.168.1.43:8081/public/join/${roomId}`
+		);
+	}
 
-	// show room title, map retrieved treasures.
-
-	// set buttons to act upon: delete, print treasure qr, start, share modal
 	return (
 		<View style={styles.container}>
 			<View style={styles.actionBar}>
 				<Button onPress={onEdit} title="Edit" />
-				<Button onPress={onPrint} title="Print QR" />
+				{/* <Button onPress={openPrintModal} title="Print QR" /> */}
+				<PrintQrModalButton
+					roomId={roomId}
+					roomTitle={data?.title}
+					treasures={data?.treasures}
+					isDisabled={!data}
+				/>
 				<Button onPress={onStart} title="Start" />
 				<Button onPress={onShare} title="Share" />
 			</View>
