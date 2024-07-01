@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { NewRoom, Room, Rooms } from "../models/Room.model";
+import ShortUniqueId from "short-unique-id";
 
 export const router = Router();
 
@@ -72,8 +73,12 @@ router.post("/create", async (request, response) => {
 		return response.json(apiResponse);
 	}
 
+	const idGenerator = new ShortUniqueId({ length: 4 });
+	const newShareId = idGenerator.rnd();
+
 	const newRoom: Room = {
 		...(room as NewRoom),
+		shareId: newShareId,
 		creationDate: new Date(),
 	};
 
@@ -137,6 +142,7 @@ router.get("/single/:roomId", async (request, response) => {
 
 		const clientRoom: Room = {
 			id: room._id.toString(),
+			shareId: room.shareId,
 			title: room.title,
 			creationDate: room.creationDate,
 			treasures: room.treasures,
