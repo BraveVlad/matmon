@@ -1,0 +1,8 @@
+{
+	"root": "web-build/",
+	"cleanUrls": false,
+	"trailingSlash": true,
+	"routes": {
+		"/**": "index.html"
+	}
+}
