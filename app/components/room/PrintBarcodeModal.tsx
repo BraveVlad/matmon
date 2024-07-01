@@ -3,13 +3,11 @@ import {
 	View,
 	Button,
 	Modal,
-	ScrollView,
 	Text,
 	FlatList,
 	ListRenderItemInfo,
 } from "react-native";
 import { Treasure, Treasures } from "../../models/Treasure.model";
-import QRCode from "react-native-qrcode-svg";
 import { printAsync, printToFileAsync } from "expo-print";
 import { createRef, useEffect, useRef } from "react";
 import ViewShot from "react-native-view-shot";

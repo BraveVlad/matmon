@@ -11,6 +11,7 @@ import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
 import { Share } from "react-native";
 import PrintQrModalButton from "../../../components/room/PrintBarcodeModalButton";
+import InviteModalButton from "../../../components/room/InviteModalButton";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -70,25 +71,20 @@ export default function RoomViewScreen() {
 			console.error(`Unable to share.`, error);
 		}
 	}
-	function onShare() {
-		ShareLink(
-			"Join my room on Matmon! ",
-			`http://192.168.1.43:8081/public/join/${roomId}`
-		);
+	function isActionBarActive() {
+		return data ? "auto" : "none";
 	}
-
 	return (
 		<View style={styles.container}>
-			<View style={styles.actionBar}>
+			<View style={styles.actionBar} pointerEvents={isActionBarActive()}>
 				<Button onPress={onEdit} title="Edit" />
 				<PrintQrModalButton
 					roomId={roomId}
 					roomTitle={data?.title}
 					treasures={data?.treasures}
-					isDisabled={!data}
 				/>
 				<Button onPress={onStart} title="Start" />
-				<Button onPress={onShare} title="Share" />
+				<InviteModalButton roomId={roomId} roomTitle={data?.title} />
 			</View>
 			{isLoading && <Text>loading room...</Text>}
 			{isError && <Text>Error: {error.toString()}</Text>}
