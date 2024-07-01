@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { Redirect, useLocalSearchParams } from "expo-router";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Redirect, router, useLocalSearchParams } from "expo-router";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Room } from "../../../models/Room.model";
 import {
 	RoomsApiResponse,
+	deleteRoomUri,
 	getSingleRoomUri,
 } from "../../../models/MatmonApi.model";
 import axios, { AxiosError } from "axios";
@@ -40,6 +41,14 @@ async function fetchRoom(roomId: string) {
 	}
 }
 
+async function deleteRoom(roomId: string) {
+	const result = await axios.post<RoomsApiResponse<string>>(deleteRoomUri(), {
+		roomId,
+	});
+
+	return result.data;
+}
+
 export default function RoomViewScreen() {
 	const { roomId } = useLocalSearchParams<{ roomId: string }>();
 	if (!roomId) return <Redirect href={"/rooms/"} />;
@@ -52,6 +61,30 @@ export default function RoomViewScreen() {
 		},
 	});
 
+	const deleteRoomMutation = useMutation({
+		mutationKey: ["delete-room", roomId],
+		mutationFn: (roomId: string) => deleteRoom(roomId),
+		onSuccess: (data, variables) => {
+			console.log(`delete room ${roomId} success!`);
+			console.log("variables:", variables);
+			console.log("data:", data);
+
+			router.replace("/rooms/");
+		},
+
+		onError: (error) => {
+			const axiosError = error as AxiosError<RoomsApiResponse<Room>>;
+
+			if (!axiosError.response) {
+				console.error("error:", axiosError.message);
+				return;
+			}
+
+			const apiResonse = axiosError.response.data;
+			console.error("api message:", apiResonse.message);
+		},
+	});
+
 	function onEdit() {}
 
 	function onStart() {}
@@ -59,10 +92,20 @@ export default function RoomViewScreen() {
 	function isActionBarActive() {
 		return data ? "auto" : "none";
 	}
+
+	function onDeleteRoom() {
+		if (!roomId) {
+			return;
+		}
+
+		deleteRoomMutation.mutate(roomId);
+	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.actionBar} pointerEvents={isActionBarActive()}>
-				<Button onPress={onEdit} title="Edit" />
+				<Button title="Delete" onPress={onDeleteRoom} />
+
 				<PrintQrModalButton
 					roomId={roomId}
 					roomTitle={data?.title}

@@ -8,6 +8,6 @@ export type Room = {
 	creator: string;
 };
 
-export type NewRoom = Omit<Room, "_id" | "creationDate">;
+export type NewRoom = Omit<Room, "id" | "creationDate">;
 
 export type Rooms = Room[];
