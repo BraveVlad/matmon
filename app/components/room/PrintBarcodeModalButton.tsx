@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, Button, Modal } from "react-native";
-import PrintQrModal from "./PrintQrModal";
+import PrintQrModal from "./PrintBarcodeModal";
 import { Treasures } from "../../models/Treasure.model";
 
 type ModalButtonProps = {

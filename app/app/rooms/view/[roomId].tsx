@@ -10,7 +10,7 @@ import axios, { AxiosError } from "axios";
 import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
 import { Share } from "react-native";
-import PrintQrModalButton from "../../../components/room/PrintQrModalButton";
+import PrintQrModalButton from "../../../components/room/PrintBarcodeModalButton";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -81,7 +81,6 @@ export default function RoomViewScreen() {
 		<View style={styles.container}>
 			<View style={styles.actionBar}>
 				<Button onPress={onEdit} title="Edit" />
-				{/* <Button onPress={openPrintModal} title="Print QR" /> */}
 				<PrintQrModalButton
 					roomId={roomId}
 					roomTitle={data?.title}
