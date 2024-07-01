@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import { GameApiResponse, getGameUri } from "../../models/MatmonApi.model";
 import { Room } from "../../models/Room.model";
 import { useQuery } from "@tanstack/react-query";
@@ -52,18 +52,7 @@ export default function GameScreen() {
 	});
 	const { userLocation } = useUserLocation();
 
-	// function handleMoveToUser() {
-	// 	if (!location) return;
-	// 	mapRef.current?.animateCamera({
-	// 		center: {
-	// 			latitude: location?.coords.latitude,
-	// 			longitude: location?.coords.longitude,
-	// 		},
-	// 		heading: 0,
-	// 		pitch: 90,
-	// 		zoom: 20,
-	// 	});
-	// }
+	function openScanTreasure() {}
 
 	if (isError) {
 		return <Redirect href={"/game/join"} />;
@@ -91,6 +80,12 @@ export default function GameScreen() {
 					treasures={room.treasures}
 					followUser
 				/>
+
+				<View style={styles.scanButtonContainer}>
+					<Pressable style={styles.scanButton} onPress={openScanTreasure}>
+						<Text style={styles.scanButtonText}>SCAN TREASURE</Text>
+					</Pressable>
+				</View>
 			</View>
 		);
 	}
@@ -113,5 +108,20 @@ const styles = StyleSheet.create({
 
 	map: {
 		flex: 1,
+	},
+
+	scanButtonContainer: {
+		position: "absolute",
+		bottom: "10%",
+	},
+	scanButton: {
+		backgroundColor: "#0693e3",
+		// margin: 32,
+	},
+	scanButtonText: {
+		fontSize: 21,
+		margin: 16,
+		color: "white",
+		fontWeight: "bold",
 	},
 });
