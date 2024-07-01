@@ -9,8 +9,8 @@ export type GameApiResponse<T> = {
 };
 
 export const MATMON_API = {
-	base: "http://192.168.1.43:3000",
-	// base: "https://matmon-server.onrender.com",
+	// base: "http://192.168.1.43:3000",
+	base: "https://matmon-server.onrender.com",
 	rooms: "/rooms",
 	game: "/game",
 };
