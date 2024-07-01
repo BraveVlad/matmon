@@ -27,6 +27,17 @@
 					"apiKey": ""
 				}
 			}
+			// "intentFilters": [
+			// 	{
+			// 		"action": "VIEW",
+			// 		"data": [
+			// 			{
+			// 				"scheme": "matmon"
+			// 			}
+			// 		],
+			// 		"category": ["BROWSABLE", "DEFAULT"]
+			// 	}
+			// ]
 		},
 		"web": {
 			"favicon": "./assets/favicon.png",
