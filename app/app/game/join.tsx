@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
+import tailwind from 'tailwind-rn';
+
 
 
 export default function JoinGameScreen() {

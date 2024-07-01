@@ -1,4 +1,6 @@
 import { Button, StyleSheet, Text, View } from "react-native";
+import tailwind from 'tailwind-rn';
+
 
 export default function CreateTreasureModal() {
 	return (

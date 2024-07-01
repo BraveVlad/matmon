@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  @apply p-10 flex-1 bg-white items-center justify-center;
+}
+
+.actionsBar {
+  @apply w-3/4 flex-row justify-end gap-4;
+}
+
+.errorMessage {
+  @apply text-red-600 font-bold;
+}
