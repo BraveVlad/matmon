@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 32,
 		color: "white",
-		marginRight: "10%",
+		// marginRight: "10%",
 	},
 });
