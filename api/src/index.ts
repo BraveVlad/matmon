@@ -6,6 +6,7 @@ import express from "express";
 import cors from "cors";
 import { json } from "body-parser";
 import { router as RoomsRouter } from "./routers/Rooms.Router";
+import { router as GameRouter } from "./routers/Game.Router";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(json());
 
 app.use("/rooms", RoomsRouter);
+app.use("/game", GameRouter);
 
 app.get("/check", async (_, res) => {
 	res.status(200);

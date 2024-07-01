@@ -6,6 +6,7 @@ export type RoomsApiResponse<T> = {
 export const MATMON_API = {
 	base: "https://matmon-server.onrender.com",
 	rooms: "/rooms",
+	game: "/game",
 };
 
 export function getAllRoomsUri(username: string) {
@@ -22,4 +23,8 @@ export function postCreateRoomUri() {
 
 export function deleteRoomUri() {
 	return MATMON_API.base + MATMON_API.rooms + "/delete";
+}
+
+export function getGameUri(gameId: string) {
+	return MATMON_API.base + MATMON_API.game + `/${gameId}`;
 }
