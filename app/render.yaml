@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: expo-web
+    env: node
+    buildCommand: yarn build:web
+    startCommand: yarn start:web
+    plan: free
+    autoDeploy: true
+    repo: https://github.com/BraveVlad/matmon
+    envVars:
+      - key: NODE_ENV
+        value: production
