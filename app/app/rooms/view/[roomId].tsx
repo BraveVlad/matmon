@@ -12,6 +12,8 @@ import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
 import PrintQrModalButton from "../../../components/room/PrintBarcodeModalButton";
 import InviteModalButton from "../../../components/room/InviteModalButton";
+import ModalButton from "../../../components/Modal/ModalButton";
+import PrintQrModal from "../../../components/room/PrintBarcodeModal";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -106,11 +108,17 @@ export default function RoomViewScreen() {
 			<View style={styles.actionBar} pointerEvents={isActionBarActive()}>
 				<Button title="Delete" onPress={onDeleteRoom} />
 
-				<PrintQrModalButton
-					roomId={roomId}
-					roomTitle={data?.title}
-					treasures={data?.treasures}
+				<ModalButton
+					title="Print QR"
+					modal={
+						<PrintQrModal
+							roomId={roomId}
+							roomTitle={data?.title}
+							treasures={data?.treasures}
+						/>
+					}
 				/>
+
 				<Button onPress={onJoin} title="Play" />
 				<InviteModalButton roomId={data?.shareId} roomTitle={data?.title} />
 			</View>
