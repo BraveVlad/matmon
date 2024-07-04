@@ -22,14 +22,14 @@ import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
 
 type CreateTreasureModalProps = {
 	otherTreasures: Treasures;
-	isVisible: boolean;
-	onCancelled: () => void;
+	isVisible?: boolean;
+	onCloseModal?: () => void;
 	onTreasureCreated: (treasure: Treasure) => void;
 };
 export default function CreateTreasureModal({
 	otherTreasures,
 	isVisible,
-	onCancelled,
+	onCloseModal,
 	onTreasureCreated,
 }: CreateTreasureModalProps) {
 	const [treasureTitle, setTreasureTitle] = useState<string>("");
@@ -58,7 +58,7 @@ export default function CreateTreasureModal({
 	}
 	function handleOnClose() {
 		resetModal();
-		onCancelled();
+		onCloseModal?.();
 	}
 
 	function handleOnTreasureCoordinateChange(coordinate: TreasureCoordinate) {
