@@ -19,17 +19,18 @@ import SearchRadiusPicker from "./SearchRadiusPicker";
 import TitleInput, { checkTextValidity } from "./TitleInput";
 import TreasureCreationMapView from "./TreasureCreationMapView";
 import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
+import ButtonView from "../Button/ButtonView";
 
 type CreateTreasureModalProps = {
 	otherTreasures: Treasures;
-	isVisible: boolean;
-	onCancelled: () => void;
+	isVisible?: boolean;
+	onCloseModal?: () => void;
 	onTreasureCreated: (treasure: Treasure) => void;
 };
 export default function CreateTreasureModal({
 	otherTreasures,
 	isVisible,
-	onCancelled,
+	onCloseModal,
 	onTreasureCreated,
 }: CreateTreasureModalProps) {
 	const [treasureTitle, setTreasureTitle] = useState<string>("");
@@ -58,7 +59,7 @@ export default function CreateTreasureModal({
 	}
 	function handleOnClose() {
 		resetModal();
-		onCancelled();
+		onCloseModal?.();
 	}
 
 	function handleOnTreasureCoordinateChange(coordinate: TreasureCoordinate) {
@@ -134,8 +135,8 @@ export default function CreateTreasureModal({
 					</View>
 					<View style={styles.actionsContainer}>
 						<View style={styles.actions}>
-							<Button title="close" onPress={handleOnClose} />
-							<Button title="create" onPress={handleOnCreate} />
+							<ButtonView text="CLOSE" onPress={handleOnClose} />
+							<ButtonView text="CREATE" onPress={handleOnCreate} />
 						</View>
 					</View>
 				</ScrollView>

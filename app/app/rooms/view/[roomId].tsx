@@ -10,8 +10,10 @@ import {
 import axios, { AxiosError } from "axios";
 import TreasuresMapView from "../../../components/creator/TreasuresMapView";
 import TreasuresListView from "../../../components/creator/TreasuresListView";
-import PrintQrModalButton from "../../../components/room/PrintBarcodeModalButton";
-import InviteModalButton from "../../../components/room/InviteModalButton";
+import ModalButton from "../../../components/Modal/ModalButton";
+import PrintQrModal from "../../../components/room/PrintBarcodeModal";
+import InviteModal from "../../../components/room/InviteModal";
+import ButtonView from "../../../components/Button/ButtonView";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -104,15 +106,34 @@ export default function RoomViewScreen() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.actionBar} pointerEvents={isActionBarActive()}>
-				<Button title="Delete" onPress={onDeleteRoom} />
-
-				<PrintQrModalButton
-					roomId={roomId}
-					roomTitle={data?.title}
-					treasures={data?.treasures}
+				<ButtonView
+					text="Delete"
+					onPress={onDeleteRoom}
+					textStyle={styles.actionButton}
 				/>
-				<Button onPress={onJoin} title="Play" />
-				<InviteModalButton roomId={data?.shareId} roomTitle={data?.title} />
+
+				<ModalButton
+					title="Print QR"
+					modal={
+						<PrintQrModal
+							roomId={roomId}
+							roomTitle={data?.title}
+							treasures={data?.treasures}
+						/>
+					}
+				/>
+
+				<ModalButton
+					title="Invite"
+					modal={
+						<InviteModal shareId={data?.shareId} roomTitle={data?.title} />
+					}
+				/>
+				<ButtonView
+					text="Play"
+					onPress={onJoin}
+					textStyle={styles.actionButton}
+				/>
 			</View>
 			{isLoading && <Text>loading room...</Text>}
 			{isError && <Text>Error: {error.toString()}</Text>}
@@ -142,12 +163,13 @@ const styles = StyleSheet.create({
 	},
 	actionBar: {
 		flexDirection: "row",
-		flexWrap: "wrap",
-		gap: 16,
+		// flexWrap: "wrap",
+		gap: 6,
 		marginVertical: 16,
 	},
 	actionButton: {
-		flex: 1,
+		// flex: 1,
+		marginHorizontal: 8,
 	},
 	title: {
 		color: "white",

@@ -10,6 +10,7 @@ import {
 } from "../../models/MatmonApi.model";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
+import ButtonView from "../../components/Button/ButtonView";
 
 async function fetchGame(gamePin: string) {
 	try {
@@ -70,15 +71,19 @@ export default function JoinGameScreen() {
 	return (
 		<View style={styles.container}>
 			<TitleInput
-				style={[styles.joinView, styles.gamepin]}
+				style={styles.joinView}
 				maxLength={4}
 				title={gamePin}
 				placeholder={"GAME PIN"}
 				onTitleChanged={onGamePinChanged}
 			/>
-			<Pressable onPress={onJoin} style={[styles.joinView, styles.joinButton]}>
-				<Text style={[styles.joinView, styles.joinButtonText]}>JOIN</Text>
-			</Pressable>
+
+			<ButtonView
+				text="JOIN"
+				onPress={onJoin}
+				style={styles.joinView}
+				textStyle={styles.joinButton}
+			/>
 			{joinError !== "" && <Text style={styles.errorMessage}>{joinError}</Text>}
 		</View>
 	);
@@ -92,22 +97,9 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		gap: 6,
 	},
-
 	joinView: { width: "75%", padding: 0 },
-	gamepin: {},
 	joinButton: {
-		alignSelf: "center",
-	},
-	joinButtonText: {
-		width: "100%",
-		backgroundColor: "#0693e3",
-		color: "white",
-		textAlign: "center",
 		fontSize: 28,
-		fontWeight: "bold",
-		borderRadius: 8,
-		// borderWidth: 2,
-		padding: 8,
 	},
 	errorMessage: {
 		color: "red",
