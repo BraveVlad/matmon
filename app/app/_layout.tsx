@@ -29,8 +29,18 @@ export default function RootLayout() {
 function TopBar() {
 	const currentPath = usePathname();
 	const isIndex = currentPath === "/" ? true : false;
-	console.log(currentPath);
 
+	function isShowBack() {
+		if (currentPath === "/") {
+			return false;
+		}
+
+		if (currentPath.includes("/creator")) {
+			return false;
+		}
+
+		return true;
+	}
 	function handleBackButton() {
 		if (router.canGoBack()) {
 			router.back();
@@ -40,6 +50,7 @@ function TopBar() {
 
 	function formatTitle() {
 		if (currentPath === "/rooms") return "My Rooms";
+		if (currentPath === "/creator") return "Creator";
 
 		return "Matmon";
 	}
@@ -54,7 +65,7 @@ function TopBar() {
 					alignItems: "center",
 				}}
 			>
-				{!isIndex && (
+				{isShowBack() && (
 					<Pressable style={{ marginRight: "auto" }} onPress={handleBackButton}>
 						<Text style={styles.backButton}>⬅️</Text>
 					</Pressable>

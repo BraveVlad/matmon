@@ -15,22 +15,22 @@ import { encode } from "base64-arraybuffer";
 import TreasureBarcode from "./TreasureBarcode";
 
 type PrintQrModalProps = {
-	isVisible: boolean;
 	roomId: string;
 	roomTitle?: string;
 	treasures?: Treasures;
-	onClose: () => void;
+	isVisible?: boolean;
+	onCloseModal?: () => void;
 };
 
 type BarcodeSnapshotRef = React.RefObject<ViewShot>;
 type BarcodeSnapshotRefs = BarcodeSnapshotRef[];
 
 export default function PrintQrModal({
-	isVisible,
 	roomTitle,
 	roomId,
 	treasures,
-	onClose,
+	isVisible,
+	onCloseModal,
 }: PrintQrModalProps) {
 	const barcodeSnapshotRefs = useRef<BarcodeSnapshotRefs>([]);
 
@@ -127,7 +127,7 @@ export default function PrintQrModal({
 	async function onPrint() {
 		const barcodesHtml = await generatePdf();
 		printBarcodesPdf(barcodesHtml);
-		onClose();
+		onCloseModal?.();
 	}
 
 	function renderBarcodeItem({ item, index }: ListRenderItemInfo<Treasure>) {
@@ -159,7 +159,7 @@ export default function PrintQrModal({
 				numColumns={2}
 			/>
 			<View style={styles.actions}>
-				<Button title="Close" onPress={onClose} />
+				<Button title="Close" onPress={onCloseModal} />
 				<Button title="Print" onPress={onPrint} />
 			</View>
 		</Modal>

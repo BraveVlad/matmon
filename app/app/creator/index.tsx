@@ -21,9 +21,11 @@ import {
 	RoomsApiResponse,
 	postCreateRoomUri,
 } from "../../models/MatmonApi.model";
-import CreateTreasureButton from "../../components/creator/CreateTreasureButton";
 import { NewRoom, Room } from "../../models/Room.model";
 import useUserLocation from "../../models/useUserLocation";
+import ModalButton from "../../components/Modal/ModalButton";
+import CreateTreasureModal from "../../components/creator/CreateTreasureModal";
+import ButtonView from "../../components/Button/ButtonView";
 
 async function createNewRoom(room: NewRoom) {
 	const result = await axios.post<RoomsApiResponse<Room>>(postCreateRoomUri(), {
@@ -128,11 +130,11 @@ export default function CreatorScreen() {
 			<ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
 				<View>
 					<View style={styles.actionsBar}>
-						<Button title="Exit" onPress={onExitRoom} />
-						<Button
-							disabled={createRoomMutation.isPending}
-							title="Save"
+						<ButtonView text="Exit" onPress={onExitRoom} />
+						<ButtonView
+							text="Save"
 							onPress={onSaveRoom}
+							pressableProps={{ disabled: createRoomMutation.isPending }}
 						/>
 					</View>
 
@@ -154,9 +156,14 @@ export default function CreatorScreen() {
 					)}
 					<TreasuresListView treasures={treasuresList} />
 
-					<CreateTreasureButton
-						otherTreasures={treasuresList}
-						onNewTreasure={onNewTreasure}
+					<ModalButton
+						title="Add Treasure"
+						modal={
+							<CreateTreasureModal
+								otherTreasures={treasuresList}
+								onTreasureCreated={onNewTreasure}
+							/>
+						}
 					/>
 				</View>
 			</ScrollView>

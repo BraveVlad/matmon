@@ -4,17 +4,17 @@ import QRCode from "react-native-qrcode-svg";
 import TreasureOpenImage from "../../assets/images/treasure/treasure-chest-open.png";
 
 type PrintQrModalProps = {
-	isVisible: boolean;
-	roomId?: string;
+	shareId?: string;
 	roomTitle?: string;
-	onClose: () => void;
+	isVisible?: boolean;
+	onCloseModal?: () => void;
 };
 
 export default function InviteModal({
-	isVisible,
 	roomTitle,
-	roomId,
-	onClose,
+	shareId,
+	isVisible,
+	onCloseModal,
 }: PrintQrModalProps) {
 	async function ShareLink(title: string, content: string) {
 		try {
@@ -32,7 +32,7 @@ export default function InviteModal({
 	}
 
 	function formtPublicInviteLink() {
-		return `https://matmon.netlify.app/web/join/${roomId}`;
+		return `https://matmon.netlify.app/web/join/${shareId}`;
 	}
 
 	function onShare() {
@@ -49,12 +49,12 @@ export default function InviteModal({
 			visible={isVisible}
 			transparent={true}
 		>
-			<Pressable style={styles.background} onPress={onClose}></Pressable>
+			<Pressable style={styles.background} onPress={onCloseModal}></Pressable>
 
 			<View style={styles.content}>
 				<Text style={styles.title}>Invite players to join</Text>
 				<Text style={[styles.title]}>GAME PIN:</Text>
-				<Text style={[styles.title, styles.name]}>{roomId}</Text>
+				<Text style={[styles.title, styles.name]}>{shareId}</Text>
 				<View style={styles.barcode}>
 					<QRCode
 						size={200}
@@ -68,7 +68,7 @@ export default function InviteModal({
 				</Pressable>
 
 				<View style={styles.actions}>
-					<Button title="Close" onPress={onClose} />
+					<Button title="Close" onPress={onCloseModal} />
 				</View>
 			</View>
 		</Modal>
