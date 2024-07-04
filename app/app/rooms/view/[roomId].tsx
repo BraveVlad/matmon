@@ -13,6 +13,7 @@ import TreasuresListView from "../../../components/creator/TreasuresListView";
 import ModalButton from "../../../components/Modal/ModalButton";
 import PrintQrModal from "../../../components/room/PrintBarcodeModal";
 import InviteModal from "../../../components/room/InviteModal";
+import ButtonView from "../../../components/Button/ButtonView";
 
 async function fetchRoom(roomId: string) {
 	try {
@@ -105,7 +106,11 @@ export default function RoomViewScreen() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.actionBar} pointerEvents={isActionBarActive()}>
-				<Button title="Delete" onPress={onDeleteRoom} />
+				<ButtonView
+					text="Delete"
+					onPress={onDeleteRoom}
+					textStyle={styles.actionButton}
+				/>
 
 				<ModalButton
 					title="Print QR"
@@ -118,12 +123,16 @@ export default function RoomViewScreen() {
 					}
 				/>
 
-				<Button onPress={onJoin} title="Play" />
 				<ModalButton
 					title="Invite"
 					modal={
 						<InviteModal shareId={data?.shareId} roomTitle={data?.title} />
 					}
+				/>
+				<ButtonView
+					text="Play"
+					onPress={onJoin}
+					textStyle={styles.actionButton}
 				/>
 			</View>
 			{isLoading && <Text>loading room...</Text>}
@@ -154,12 +163,13 @@ const styles = StyleSheet.create({
 	},
 	actionBar: {
 		flexDirection: "row",
-		flexWrap: "wrap",
-		gap: 16,
+		// flexWrap: "wrap",
+		gap: 6,
 		marginVertical: 16,
 	},
 	actionButton: {
-		flex: 1,
+		// flex: 1,
+		marginHorizontal: 8,
 	},
 	title: {
 		color: "white",

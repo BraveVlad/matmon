@@ -19,6 +19,7 @@ import SearchRadiusPicker from "./SearchRadiusPicker";
 import TitleInput, { checkTextValidity } from "./TitleInput";
 import TreasureCreationMapView from "./TreasureCreationMapView";
 import TreasureLootPicker, { Loot } from "./TreasureLootPicker";
+import ButtonView from "../Button/ButtonView";
 
 type CreateTreasureModalProps = {
 	otherTreasures: Treasures;
@@ -134,8 +135,8 @@ export default function CreateTreasureModal({
 					</View>
 					<View style={styles.actionsContainer}>
 						<View style={styles.actions}>
-							<Button title="close" onPress={handleOnClose} />
-							<Button title="create" onPress={handleOnCreate} />
+							<ButtonView text="CLOSE" onPress={handleOnClose} />
+							<ButtonView text="CREATE" onPress={handleOnCreate} />
 						</View>
 					</View>
 				</ScrollView>
