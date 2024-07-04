@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactElement, cloneElement, useState } from "react";
 import { Button, View } from "react-native";
+import ButtonView from "../Button/ButtonView";
 
 type ModalWithCloseButton = ReactElement<{
 	isVisible: boolean;
@@ -33,7 +34,7 @@ export default function ModalButton({
 
 	return (
 		<View>
-			<Button title={title} onPress={onOpen} />
+			<ButtonView text={title} onPress={onOpen} />
 			{cloneElement(modal, {
 				onCloseModal: onClose,
 				isVisible: isModalVisible,
