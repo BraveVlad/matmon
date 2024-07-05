@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Redirect, useLocalSearchParams } from "expo-router";
 import TreasuresMapView from "../../components/creator/TreasuresMapView";
 import useUserLocation from "../../models/useUserLocation";
+import ModalButton from "../../components/Modal/ModalButton";
+import ScanTreasureModal from "../../components/game/ScanTreasureModal";
 
 async function fetchGame(gamePin: string) {
 	try {
@@ -82,9 +84,11 @@ export default function GameScreen() {
 				/>
 
 				<View style={styles.scanButtonContainer}>
-					<Pressable style={styles.scanButton} onPress={openScanTreasure}>
+					{/* <Pressable style={styles.scanButton} onPress={openScanTreasure}>
 						<Text style={styles.scanButtonText}>SCAN TREASURE</Text>
-					</Pressable>
+					</Pressable> */}
+
+					<ModalButton title="HUNT TREASURE" modal={<ScanTreasureModal />} />
 				</View>
 			</View>
 		);
